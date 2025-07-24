@@ -34,7 +34,7 @@
 
             <div class="relative">
                 <!-- 小鳥のイラスト -->
-                <img src="" alt="小鳥" class="absolute -top-20 right-0 w-16 h-auto -mr-4 z-10">
+                <img src="{{ asset('img/bird1.png') }}" alt="小鳥" class="absolute -top-20 right-0 w-16 h-auto -mr-4 z-10">
 
 
                 <form method="POST" action="{{ route('reservations.store') }}">
@@ -71,7 +71,7 @@
         <!-- 予約一覧ボタン/キャンセルはこちらから -->
         <div class="relative">
             <!-- 小鳥のイラスト -->
-            <img src="/img/bird2.png" alt="小鳥" class="absolute -top-8  w-12 h-auto -mr-4 z-10" style="left: 470px;">
+            <img src="{{ asset('img/bird2.png') }}" alt="小鳥" class="absolute -top-8  w-12 h-auto -mr-4 z-10" style="left: 470px;">
 
             <!-- 枠 -->
             <div class="mt-10 max-w-md mx-auto p-6 rounded-2xl shadow" style="background-color: #FFFFFF; border: 2px solid #FFB85C;">
