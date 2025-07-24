@@ -15,6 +15,7 @@
 
     <div class="py-12">
         <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+            <!-- formの遷移先を変更したら削除してＯＫ？ -->
             @if (session('message'))
                 <div class="mb-4 text-green-600">
                     {{ session('message') }}

@@ -14,49 +14,41 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::orderBy('created_at', 'desc')->get();
-        return view('reservations.index' , compact('reservations'));
+        return view('reservations.index', compact('reservations'));
     }
 
-    
-
-     public function create()
+    public function create()
     {
         return view('reservations.create');
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
      */
 
-
-
-    
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'reservation_datetime' => 'required|date',
-    ]);
+    {
+        $validated = $request->validate([
+            'reservation_datetime' => 'required|date',
+        ]);
 
-    Reservation::create([
-        'user_id' => Auth::id(),
-        'reservation_datetime' => $validated['reservation_datetime'],
-    ]);
+        Reservation::create([
+            'user_id' => Auth::id(),
+            'reservation_datetime' => $validated['reservation_datetime'],
+        ]);
 
-    return redirect()->route('reservations.create')
-        ->with('message', '予約が完了しました！');
-}
+        return redirect()->route('reservations.index')
+            ->with('message', '予約が完了しました！');
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
-{
-    $reservation = Reservation::findOrFail($id);
-    return view('reservations.show', compact('reservation'));
-}
+    {
+        $reservation = Reservation::findOrFail($id);
+        return view('reservations.show', compact('reservation'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -64,46 +56,44 @@ class ReservationController extends Controller
     public function edit(string $id)
     {
         $reservation = Reservation::where('id', $id)
-        ->where('user_id', auth()->id())
-        ->firstOrFail();
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
-    return view('reservations.edit', compact('reservation'));
+        return view('reservations.edit', compact('reservation'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-{
-     $validated = $request->validate([
-        'reservation_datetime' => 'required|date',
-    ]);
+    {
+        $validated = $request->validate([
+            'reservation_datetime' => 'required|date',
+        ]);
 
-    $reservation = Reservation::where('id', $id)
-        ->where('user_id', auth()->id())
-        ->firstOrFail();
+        $reservation = Reservation::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
-    $reservation->update($validated);
+        $reservation->update($validated);
 
-    $request->session()->flash('message', '更新しました');
-
-    return back();
-}
+        return redirect()->route('reservations.index')->with('message', '更新しました');
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-   public function destroy(Request $request, string $id)
-{
-    // 予約一覧の「どこ」どこを指すのがID
-    $reservation = Reservation::where('id', $id)
-    // IDだけでは不安なので（ほかの人でも操作できるため）USER=IDも追加
-        ->where('user_id', auth()->id())
-        ->firstOrFail();
+    public function destroy(Request $request, string $id)
+    {
+        // 予約一覧の「どこ」どこを指すのがID
+        $reservation = Reservation::where('id', $id)
+            // IDだけでは不安なので（ほかの人でも操作できるため）USER=IDも追加
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
-    $reservation->delete();
+        $reservation->delete();
 
-    return redirect()->route('reservations.index')
-        ->with('message', '予約をキャンセルしました');
-}
+        return redirect()->route('reservations.index')
+            ->with('message', '予約をキャンセルしました');
+    }
 }
