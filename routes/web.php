@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ReservationController;
-use App\Models\Reservation;
+use App\Http\Controllers\Admin\AdminAuthController;
 
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HolidayController;
+use App\Models\Reservation;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,16 +34,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::resource('reservations', ReservationController::class);
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Authentication routes
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login']);
+    Route::get('/register', [AdminAuthController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [AdminAuthController::class, 'register']);
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
-// Route::get('reservations/{reservation}/edit', [ReservationController::class, 'edit'])
-//     ->name('reservation.edit');
 
-// Route::patch('reservations/{reservation}', [ReservationController::class, 'update'])
-//     ->name('reservation.update');
-
-// Route::delete('reservation/{reservation}',[ReservationController::class,'destroy'])
-//     ->name('reservation.destroy');
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('holidays', HolidayController::class);
+    });
+});
 
 Route::middleware(['auth'])->group(function () {
     // 予約ルート
