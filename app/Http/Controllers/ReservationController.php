@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Reservation;
+use App\Models\Holiday;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $reservations = Reservation::orderBy('created_at', 'desc')->get();
+        $reservations = Auth::user()->reservations()
+            ->orderBy('reservation_datetime', 'desc')
+            ->paginate(10);
+
         return view('reservations.index', compact('reservations'));
     }
 
@@ -22,78 +29,126 @@ class ReservationController extends Controller
         return view('reservations.create');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'reservation_datetime' => 'required|date',
+        $request->validate([
+            'reservation_date' => 'required|date|after_or_equal:today',
+            'reservation_time' => 'required|date_format:H:i',
         ]);
+
+        $datetime = Carbon::parse($request->reservation_date . ' ' . $request->reservation_time);
+
+        // 休診日チェック
+        $isHoliday = Holiday::where('holiday_date', $datetime->format('Y-m-d'))->exists();
+        if ($isHoliday) {
+            return back()->withErrors(['reservation_date' => 'この日は休診日です。']);
+        }
+
+        // 日曜日チェック
+        if ($datetime->isSunday()) {
+            return back()->withErrors(['reservation_date' => '日曜日は定休日です。']);
+        }
+
+        // ユーザーの未来の予約チェック（1件制限）
+        $userExistingReservation = Reservation::where('user_id', Auth::id())
+            ->where('reservation_datetime', '>', now())
+            ->first();
+        if ($userExistingReservation) {
+            return back()->withErrors(['reservation_date' => 'すでに未来の予約があります。新しい予約をするには既存の予約をキャンセルしてください。']);
+        }
+
+        // 重複チェック
+        $existing = Reservation::where('reservation_datetime', $datetime)->first();
+        if ($existing) {
+            return back()->withErrors(['reservation_time' => 'この時間は既に予約が入っています。']);
+        }
 
         Reservation::create([
             'user_id' => Auth::id(),
-            'reservation_datetime' => $validated['reservation_datetime'],
+            'reservation_datetime' => $datetime,
         ]);
 
         return redirect()->route('reservations.index')
-            ->with('message', '予約が完了しました！');
+            ->with('success', '予約を受け付けました。');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Reservation $reservation)
     {
-        $reservation = Reservation::findOrFail($id);
+        // 自分の予約のみ表示
+        if ($reservation->user_id !== Auth::id()) {
+            abort(403);
+        }
+
         return view('reservations.show', compact('reservation'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Reservation $reservation)
     {
-        $reservation = Reservation::where('id', $id)
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+        // 自分の予約のみ編集可能
+        if ($reservation->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        // 過去の予約は編集不可
+        if ($reservation->reservation_datetime < now()) {
+            return redirect()->route('reservations.index')
+                ->with('error', '過去の予約は変更できません。');
+        }
 
         return view('reservations.edit', compact('reservation'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Reservation $reservation)
     {
-        $validated = $request->validate([
-            'reservation_datetime' => 'required|date',
+        // 自分の予約のみ更新可能
+        if ($reservation->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'reservation_date' => 'required|date|after_or_equal:today',
+            'reservation_time' => 'required|date_format:H:i',
         ]);
 
-        $reservation = Reservation::where('id', $id)
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+        $datetime = Carbon::parse($request->reservation_date . ' ' . $request->reservation_time);
 
-        $reservation->update($validated);
+        // 休診日チェック
+        $isHoliday = Holiday::where('holiday_date', $request->reservation_date)->exists();
+        if ($isHoliday) {
+            return back()->withErrors(['reservation_date' => 'この日は休診日です。']);
+        }
 
-        return redirect()->route('reservations.index')->with('message', '更新しました');
+        // 日曜日チェック
+        if ($datetime->isSunday()) {
+            return back()->withErrors(['reservation_date' => '日曜日は定休日です。']);
+        }
+
+        // 重複チェック（自分以外）
+        $existing = Reservation::where('reservation_datetime', $datetime)
+            ->where('id', '!=', $reservation->id)
+            ->first();
+        if ($existing) {
+            return back()->withErrors(['reservation_time' => 'この時間は既に予約が入っています。']);
+        }
+
+        $reservation->update([
+            'reservation_datetime' => $datetime,
+        ]);
+
+        return redirect()->route('reservations.index')
+            ->with('success', '予約を変更しました。');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request, string $id)
+    public function destroy(Reservation $reservation)
     {
-        // 予約一覧の「どこ」どこを指すのがID
-        $reservation = Reservation::where('id', $id)
-            // IDだけでは不安なので（ほかの人でも操作できるため）USER=IDも追加
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+        // 自分の予約のみ削除可能
+        if ($reservation->user_id !== Auth::id()) {
+            abort(403);
+        }
 
         $reservation->delete();
 
         return redirect()->route('reservations.index')
-            ->with('message', '予約をキャンセルしました');
+            ->with('success', '予約をキャンセルしました。');
     }
 }
