@@ -21,7 +21,9 @@
                         @csrf
                         @method('PUT')
 
-                        <!-- 予約日 -->
+                        <!-- TODO_RESTORE_ORIGINAL_FORM: 元の分離フォーム形式に戻す場合は以下をコメントイン -->
+                        <!--
+                        予約日
                         <div class="mb-6">
                             <label for="reservation_date" class="block text-sm font-medium text-gray-700">新しい予約日</label>
                             <input type="text" name="reservation_date" id="reservation_date" 
@@ -31,7 +33,7 @@
                             <x-input-error :messages="$errors->get('reservation_date')" class="mt-2" />
                         </div>
 
-                        <!-- 予約時間 -->
+                        予約時間
                         <div class="mb-6">
                             <label for="reservation_time" class="block text-sm font-medium text-gray-700">新しい予約時間</label>
                             <select name="reservation_time" id="reservation_time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -39,6 +41,19 @@
                                 <!-- JavaScriptで動的生成 -->
                             </select>
                             <x-input-error :messages="$errors->get('reservation_time')" class="mt-2" />
+                        </div>
+                        -->
+
+                        <!-- 予約日時（datetime-local形式に統一） - TODO_RESTORE_ORIGINAL_FORM: 統一形式削除時は以下を削除 -->
+                        <div class="mb-6">
+                            <label for="reservation_datetime" class="block text-sm font-medium text-gray-700">新しい予約日時</label>
+                            <input type="datetime-local" 
+                                   name="reservation_datetime" 
+                                   id="reservation_datetime" 
+                                   value="{{ old('reservation_datetime', $reservation->reservation_datetime->format('Y-m-d\TH:i')) }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                   required>
+                            <x-input-error :messages="$errors->get('reservation_datetime')" class="mt-2" />
                         </div>
 
                         <div class="flex items-center justify-end mt-4 space-x-4">
