@@ -12,12 +12,13 @@
         </h2>
     </x-slot>
 
-    <div class="mx-auto px-6">
-        @if(session('message'))
-        <div class="text-red-600 font-bold">
-            {{session('message')}}
-        </div>
-        @endif
+        <!-- メッセージ表示 -->
+        <div class="px-6">
+            @if(session('message'))
+            <div class="text-red-600 font-bold mb-4 text-center">
+                {{ session('message') }}
+            </div>
+            @endif
 
         @foreach ($reservations as $reservation)
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
