@@ -17,7 +17,9 @@ class ReservationController extends Controller
 
     public function index()
     {
-        $reservations = Auth::user()->reservations()
+       /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $reservations = $user->reservations()
             ->orderBy('reservation_datetime', 'desc')
             ->paginate(10);
 
