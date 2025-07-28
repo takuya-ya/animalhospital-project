@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\AdminAuthController;
-
-use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HolidayController;
+
+
 use App\Models\Reservation;
 
 /*
@@ -45,13 +46,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('auth:admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('reservations', ReservationController::class);
         Route::resource('holidays', HolidayController::class);
     });
 });
 
 Route::middleware(['auth'])->group(function () {
     // 予約ルート
-    Route::resource('reservations', ReservationController::class);
+    // Route::resource('reservations', ReservationController::class);
+        Route::resource('reservations', \App\Http\Controllers\ReservationController::class);
+
+    
 
     // プロフィール関連
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
