@@ -35,6 +35,36 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// フロントエンドのルート
+Route::get('/', function () {
+    return view('pages.home');
+});
+
+Route::get('/faq', function () {
+    return view('pages.faq');
+});
+
+Route::get('/guide', function () {
+    return view('pages.guide');
+});
+
+Route::get('/recruit', function () {
+    return view('pages.recruit');
+});
+
+Route::get('/reservation', function () {
+    return view('pages.reservation');
+});
+
+Route::get('/staff', function () {
+    return view('pages.staff');
+});
+
+Route::get('/facility', function () {
+    return view('pages.facility');
+});
+
+// バックエンドのルート
 Route::prefix('admin')->name('admin.')->group(function () {
     // Authentication routes
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
