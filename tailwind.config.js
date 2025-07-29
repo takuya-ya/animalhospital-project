@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['"M PLUS Rounded 1c"', 'ui-sans-serif', 'system-ui'],
             },
         },
     },

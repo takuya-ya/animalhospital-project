@@ -244,7 +244,7 @@
                     </a>
                 </div>
 
-                <a href="/reservation">
+                <a href="/reservations">
                     <!-- スマホ用画像（768px未満で表示） -->
                     <img src="{{ asset('images/home-banner-to-reservation-sp.png') }}"
                         alt="診察予約（スマホ）"

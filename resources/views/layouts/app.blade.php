@@ -39,7 +39,7 @@
         {{ $slot }}
 
         {{-- ご予約ボタン画像（右下に表示） --}}
-        <a href="/reservation"
+        <a href="/reservations"
             class="fixed bottom-[4.5rem] md:bottom-[7.5rem] right-6 z-50 w-24 h-24 md:w-28 md:h-28">
             <img src="{{ asset('images/home-top-button-to-reservation.png') }}"
                 alt="ご予約はこちらボタン"
