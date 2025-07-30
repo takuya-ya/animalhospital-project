@@ -85,7 +85,6 @@ class ReservationController extends Controller
 
         // 予約更新
         $this->reservationService->updateReservation($reservation, $data);
-
         return redirect()->route('reservations.index')
             ->with('success', '予約を変更しました。');
     }
