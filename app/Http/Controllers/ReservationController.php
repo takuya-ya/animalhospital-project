@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReservationRequest;
+use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Reservation;
-use App\Models\Holiday;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Services\ReservationService;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    public function __construct()
+    protected $reservationService;
+
+    public function __construct(ReservationService $reservationService)
     {
         $this->middleware('auth');
+        $this->reservationService = $reservationService;
     }
 
     public function index()
     {
-       /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $reservations = $user->reservations()
             ->orderBy('reservation_datetime', 'desc')
@@ -31,46 +34,15 @@ class ReservationController extends Controller
         return view('reservations.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreReservationRequest $request)
     {
-        // サーバー側のバリデーション
-        $request->validate([
-            'reservation_date' => 'required|date|after_or_equal:today',
-            'reservation_time' => 'required|date_format:H:i',
-        ]);
+        $data = $request->getServiceData();
 
-        // 文字列を Carbon の日時インスタンスに変換
-        $datetime = Carbon::parse($request->reservation_date . ' ' . $request->reservation_time);
+        // 業務ルールのバリデーション
+        $this->reservationService->validateBusinessRules($data);
 
-        // 休診日チェック
-        $isHoliday = Holiday::where('holiday_date', $datetime->format('Y-m-d'))->exists();
-        if ($isHoliday) {
-            return back()->withErrors(['reservation_date' => 'この日は休診日です。']);
-        }
-
-        // 日曜日チェック
-        if ($datetime->isSunday()) {
-            return back()->withErrors(['reservation_date' => '日曜日は定休日です。']);
-        }
-
-        // ユーザーの未来の予約チェック（1件制限）
-        $userExistingReservation = Reservation::where('user_id', Auth::id())
-            ->where('reservation_datetime', '>', now())
-            ->first();
-        if ($userExistingReservation) {
-            return back()->withErrors(['reservation_date' => 'すでに未来の予約があります。新しい予約をするには既存の予約をキャンセルしてください。']);
-        }
-
-        // 重複チェック
-        $existing = Reservation::where('reservation_datetime', $datetime)->first();
-        if ($existing) {
-            return back()->withErrors(['reservation_time' => 'この時間は既に予約が入っています。']);
-        }
-
-        Reservation::create([
-            'user_id' => Auth::id(),
-            'reservation_datetime' => $datetime,
-        ]);
+        // 予約作成
+        $reservation = $this->reservationService->createReservation($data);
 
         return redirect()->route('reservations.index')
             ->with('success', '予約を受け付けました。');
@@ -102,42 +74,17 @@ class ReservationController extends Controller
         return view('reservations.edit', compact('reservation'));
     }
 
-    public function update(Request $request, Reservation $reservation)
+    public function update(UpdateReservationRequest $request, Reservation $reservation)
     {
-        // 自分の予約のみ更新可能
-        if ($reservation->user_id !== Auth::id()) {
-            abort(403);
-        }
+        $data = $request->getServiceData();
+        $data['user_id'] = $reservation->user_id;
+        $data['reservation_id'] = $reservation->id;
 
-        $request->validate([
-            'reservation_date' => 'required|date|after_or_equal:today',
-            'reservation_time' => 'required|date_format:H:i',
-        ]);
+        // 業務ルールのバリデーション
+        $this->reservationService->validateBusinessRules($data);
 
-        $datetime = Carbon::parse($request->reservation_date . ' ' . $request->reservation_time);
-
-        // 休診日チェック
-        $isHoliday = Holiday::where('holiday_date', $request->reservation_date)->exists();
-        if ($isHoliday) {
-            return back()->withErrors(['reservation_date' => 'この日は休診日です。']);
-        }
-
-        // 日曜日チェック
-        if ($datetime->isSunday()) {
-            return back()->withErrors(['reservation_date' => '日曜日は定休日です。']);
-        }
-
-        // 重複チェック（自分以外）
-        $existing = Reservation::where('reservation_datetime', $datetime)
-            ->where('id', '!=', $reservation->id)
-            ->first();
-        if ($existing) {
-            return back()->withErrors(['reservation_time' => 'この時間は既に予約が入っています。']);
-        }
-
-        $reservation->update([
-            'reservation_datetime' => $datetime,
-        ]);
+        // 予約更新
+        $this->reservationService->updateReservation($reservation, $data);
 
         return redirect()->route('reservations.index')
             ->with('success', '予約を変更しました。');
