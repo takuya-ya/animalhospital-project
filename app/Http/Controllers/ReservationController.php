@@ -33,6 +33,7 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
+        // サーバー側のバリデーション
         $request->validate([
             'reservation_date' => 'required|date|after_or_equal:today',
             'reservation_time' => 'required|date_format:H:i',
