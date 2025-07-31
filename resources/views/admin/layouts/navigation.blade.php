@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('admin.holidays.index')" :active="request()->routeIs('admin.holidays.*')">
                         {{ __('休診日管理') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.news.index')" :active="request()->routeIs('admin.news.*')">
+                        {{ __('お知らせ管理') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -77,6 +80,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.holidays.index')" :active="request()->routeIs('admin.holidays.*')">
                 {{ __('休診日管理') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.news.index')" :active="request()->routeIs('admin.news.*')">
+                {{ __('お知らせ管理') }}
             </x-responsive-nav-link>
         </div>
 
