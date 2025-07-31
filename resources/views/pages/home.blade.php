@@ -41,31 +41,7 @@
             {{-- お知らせリスト枠 --}}
             <div class="bg-white border-2 border-[#FD8C07] rounded p-10 relative mt-10">
                 {{-- お知らせ内容 --}}
-                <ul class="space-y-3 text-sm text-left">
-                    @foreach([
-                    ['date' => '2025.07.01', 'text' => '7月6日(日)：院長不在のため休診とさせていただきます。'],
-                    ['date' => '2025.05.15', 'text' => '5月18日(日)：院長不在のため休診とさせていただきます。'],
-                    ['date' => '2025.04.24', 'text' => '5月3日(土)：院長不在のため休診とさせていただきます。'],
-                    ['date' => '2025.04.04', 'text' => '4月10日(水)：院長不在のため休診とさせていただきます。'],
-                    ['date' => '2025.03.01', 'text' => '3月9日(日)：院長不在のため休診とさせていただきます。'],
-                    ] as $item)
-                    <li class="text-left text-sm leading-relaxed">
-                        <span style="color:#FD8C07">{{ $item['date'] }}</span>
-                        <span>{{ $item['text'] }}</span>
-                    </li>
-
-                    {{-- 区切り線（最後以外） --}}
-                    @unless($loop->last)
-                    <div class="max-w-full mb-2"
-                        style="height: 3px;
-                background-image: radial-gradient(circle, #715433 1px, transparent 1px);
-                background-size: 3px 3px;
-                background-repeat: repeat-x;
-                border-radius: 3px;">
-                    </div>
-                    @endunless
-                    @endforeach
-                </ul>
+                <x-latest-news :latestNews="$latestNews" />
             </div>
         </div>
 
