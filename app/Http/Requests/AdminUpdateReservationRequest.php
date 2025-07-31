@@ -21,7 +21,7 @@ class AdminUpdateReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'reservation_date' => 'required|date',
+            'reservation_date' => 'required|date', // 管理者は過去日時も編集可能
             'reservation_time' => 'required|date_format:H:i',
         ];
     }
