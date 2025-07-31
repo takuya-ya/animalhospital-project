@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HolidayController;
+use App\Http\Controllers\Admin\NewsController;
 
 
 use App\Models\Reservation;
@@ -21,10 +22,6 @@ use App\Models\Reservation;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -37,7 +34,9 @@ Route::middleware('auth')->group(function () {
 
 // フロントエンドのルート
 Route::get('/', function () {
-    return view('pages.home');
+    $newsService = app(\App\Services\NewsService::class);
+    $latestNews = $newsService->getLatest(5);
+    return view('pages.home', compact('latestNews'));
 });
 
 Route::get('/faq', function () {
@@ -78,6 +77,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('reservations', ReservationController::class);
         Route::resource('holidays', HolidayController::class);
+        Route::resource('news', NewsController::class);
     });
 });
 
