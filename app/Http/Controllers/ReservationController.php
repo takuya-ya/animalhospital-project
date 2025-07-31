@@ -36,13 +36,10 @@ class ReservationController extends Controller
 
     public function store(StoreReservationRequest $request)
     {
-        $data = $request->getServiceData();
-
-        // 業務ルールのバリデーション
-        $this->reservationService->validateBusinessRules($data);
-
-        // 予約作成
-        $reservation = $this->reservationService->createReservation($data);
+        // FormRequestの基本バリデーションは自動実行済み
+        
+        // 業務ルールのバリデーション + 予約作成
+        $reservation = $this->reservationService->createReservation($request->getServiceData());
 
         return redirect()->route('reservations.index')
             ->with('success', '予約を受け付けました。');
@@ -76,15 +73,11 @@ class ReservationController extends Controller
 
     public function update(UpdateReservationRequest $request, Reservation $reservation)
     {
-        $data = $request->getServiceData();
-        $data['user_id'] = $reservation->user_id;
-        $data['reservation_id'] = $reservation->id;
-
-        // 業務ルールのバリデーション
-        $this->reservationService->validateBusinessRules($data);
-
-        // 予約更新
-        $this->reservationService->updateReservation($reservation, $data);
+        // FormRequestの基本バリデーションは自動実行済み
+        
+        // 業務ルールのバリデーション + 予約更新
+        $this->reservationService->updateReservation($reservation, $request->getServiceData());
+        
         return redirect()->route('reservations.index')
             ->with('success', '予約を変更しました。');
     }

@@ -9,6 +9,12 @@ use Illuminate\Validation\ValidationException;
 
 class ReservationService
 {
+    // 業務ルール定数
+    const CLOSED_DAY_OF_WEEK = Carbon::SUNDAY;
+    const CLOSED_DAY_MESSAGE = '日曜日は定休日です。';
+    const HOLIDAY_MESSAGE = 'この日は休診日です。';
+    const CONFLICT_MESSAGE = 'この時間は既に予約が入っています。';
+    const USER_LIMIT_MESSAGE = 'この顧客は既に予約済みです。既存の予約をキャンセルしてから新しい予約を作成してください。';
     /**
      * 業務ルールのバリデーション（一般ユーザー用）
      */
@@ -30,9 +36,9 @@ class ReservationService
     public function ensureIsBusinessDay(Carbon $datetime): void
     {
         // 日曜日チェック
-        if ($datetime->isSunday()) {
+        if ($datetime->dayOfWeek === self::CLOSED_DAY_OF_WEEK) {
             throw ValidationException::withMessages([
-                'reservation_date' => '日曜日は定休日です。'
+                'reservation_date' => self::CLOSED_DAY_MESSAGE
             ]);
         }
 
@@ -40,7 +46,7 @@ class ReservationService
         $isHoliday = Holiday::where('holiday_date', $datetime->toDateString())->exists();
         if ($isHoliday) {
             throw ValidationException::withMessages([
-                'reservation_date' => 'この日は休診日です。'
+                'reservation_date' => self::HOLIDAY_MESSAGE
             ]);
         }
     }
@@ -58,7 +64,7 @@ class ReservationService
         
         if ($query->exists()) {
             throw ValidationException::withMessages([
-                'reservation_time' => 'この時間は既に予約が入っています。'
+                'reservation_time' => self::CONFLICT_MESSAGE
             ]);
         }
     }
@@ -77,16 +83,20 @@ class ReservationService
         
         if ($query->exists()) {
             throw ValidationException::withMessages([
-                'user_id' => 'この顧客は既に未来の予約があります。既存の予約をキャンセルしてから新しい予約を作成してください。'
+                'user_id' => self::USER_LIMIT_MESSAGE
             ]);
         }
     }
 
     /**
-     * 予約を作成
+     * 予約を作成（業務ルールバリデーション込み）
      */
     public function createReservation(array $data): Reservation
     {
+        // 業務ルールのバリデーション
+        $this->validateBusinessRules($data);
+        
+        // 予約作成
         return Reservation::create([
             'user_id' => $data['user_id'],
             'reservation_datetime' => Carbon::parse($data['reservation_datetime']),
@@ -94,10 +104,14 @@ class ReservationService
     }
 
     /**
-     * 予約を更新
+     * 予約を更新（業務ルールバリデーション込み）
      */
     public function updateReservation(Reservation $reservation, array $data): Reservation
     {
+        // 業務ルールのバリデーション
+        $this->validateBusinessRules($data);
+        
+        // 予約更新
         $reservation->update([
             'reservation_datetime' => Carbon::parse($data['reservation_datetime']),
         ]);

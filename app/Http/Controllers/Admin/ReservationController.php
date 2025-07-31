@@ -49,6 +49,8 @@ class ReservationController extends Controller
      */
     public function store(AdminStoreReservationRequest $request)
     {
+        // FormRequestの基本バリデーションは自動実行済み
+        
         // 業務ルールのバリデーション
         $request->validateBusinessRules();
 
@@ -76,6 +78,8 @@ class ReservationController extends Controller
      */
     public function update(AdminUpdateReservationRequest $request, Reservation $reservation)
     {
+        // FormRequestの基本バリデーションは自動実行済み
+        
         // 業務ルールのバリデーション
         $request->validateBusinessRules();
 

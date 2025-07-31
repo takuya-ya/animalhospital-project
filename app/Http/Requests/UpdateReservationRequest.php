@@ -45,23 +45,6 @@ class UpdateReservationRequest extends FormRequest
     }
 
     /**
-     * 業務ルールのバリデーション（Service層に移譲）
-     */
-    public function validateBusinessRules(): void
-    {
-        $reservationService = app(ReservationService::class);
-        $reservation = $this->route('reservation');
-
-        $data = [
-            'reservation_datetime' => $this->getReservationDateTime(),
-            'user_id' => $reservation->user_id,
-            'reservation_id' => $reservation->id,
-        ];
-
-        $reservationService->validateBusinessRules($data);
-    }
-
-    /**
      * バリデーション済の予約日時を文字列で取得
      */
     public function getReservationDateTime(): string
@@ -74,7 +57,10 @@ class UpdateReservationRequest extends FormRequest
      */
     public function getServiceData(): array
     {
+        $reservation = $this->route('reservation');
         return [
+            'user_id' => $reservation->user_id,
+            'reservation_id' => $reservation->id,
             'reservation_datetime' => $this->getReservationDateTime(),
         ];
     }

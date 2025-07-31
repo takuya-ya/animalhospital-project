@@ -43,21 +43,6 @@ class StoreReservationRequest extends FormRequest
     }
 
     /**
-     * 業務ルールのバリデーション（Service層に移譲）
-     */
-    public function validateBusinessRules(): void
-    {
-        $reservationService = app(ReservationService::class);
-
-        $data = [
-            'reservation_datetime' => $this->getReservationDateTime(),
-            'user_id' => Auth::id(),
-        ];
-
-        $reservationService->validateBusinessRules($data);
-    }
-
-    /**
      * バリデーション済の予約日時を文字列で取得
      */
     public function getReservationDateTime(): string
