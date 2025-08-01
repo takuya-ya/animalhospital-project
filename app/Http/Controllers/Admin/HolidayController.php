@@ -68,4 +68,10 @@ class HolidayController extends Controller
         return redirect()->route('admin.holidays.index')
             ->with('success', '休診日を削除しました。');
     }
+
+    public function home()
+    {
+        $holydaysNews = Holiday::orderBy('holiday_date', 'desc')->get();
+        return view('pages.home', compact('holydaysNews'));
+    }
 }

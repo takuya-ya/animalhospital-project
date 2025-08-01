@@ -1,9 +1,10 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-center">
-            {{ __('新規 診察予約登録') }}
-        </h2>
-    </x-slot>
+<x-head-section title="予約登録" />
+
+<!-- 上に配置しているログイン/ログアウトの機能　reservations/viewa/components/user-menu.blade.php -->
+<x-user-menu />
+
+
+
 
     <!-- 予約入力してボタンを押すと予約完了しましたの文字が表示されるところ -->
     <div class="py-2" style="background-color: #FFFDEA;">
@@ -33,7 +34,7 @@
 
             <div class="relative">
                 <!-- 小鳥のイラスト -->
-                <img src="{{ asset('img/bird1.png') }}" alt="小鳥" class="absolute -top-20 right-0 w-16 h-auto -mr-4 z-10">
+                <img src="{{ asset('img/bird4.png') }}" alt="小鳥" class="absolute -top-[80px] right-0 w-16 h-auto -mr-4 z-10">
 
                 @php
                 $hasExistingReservation = auth()->user()->reservations()->where('reservation_datetime', '>', now())->count() > 0;
@@ -89,12 +90,12 @@
         </div>
 
         <!-- 予約一覧ボタン/キャンセルはこちらから -->
-        <div class="relative">
-            <!-- 小鳥のイラスト -->
-            <img src="{{ asset('img/bird2.png') }}" alt="小鳥" class="absolute -top-8  w-12 h-auto -mr-4 z-10" style="left: 470px;">
-
             <!-- 枠 -->
-            <div class="mt-10 max-w-md mx-auto p-6 rounded-2xl shadow" style="background-color: #FFFFFF; border: 2px solid #FFB85C;">
+            <div class=" relative mt-10 max-w-md mx-auto p-6 rounded-2xl shadow" style="background-color: #FFFFFF; border: 2px solid #FFB85C;">
+                <!-- 小鳥のイラスト -->
+                <img src="{{ asset('img/bird3.png') }}"
+                    alt="小鳥"
+                    class="absolute bottom-13 w-12 h-auto z-10 left-1/2 transform -translate-x-[300%]">
                 <div class="not-flex">
                     <div class="text-center mt-4 text-orange-500 text-2xl font-bold" style="font-family: 'M PLUS Rounded 1c';">
                         予約確認
@@ -104,7 +105,8 @@
                     </p>
 
                     <a href="{{ route('reservations.index') }}"
-                        class="block w-[400px] bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mt-5 text-center" style="font-family: 'M PLUS Rounded 1c';">
+                        class="block w-full sm:w-[400px] max-w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mt-5 text-center"
+                        style="font-family: 'M PLUS Rounded 1c';">
                         予約一覧<br>
                     </a>
                 </div>
@@ -112,4 +114,10 @@
         </div>
 
         <script src="{{ asset('js/reservation-calendar.js') }}"></script>
-</x-app-layout>
+    </div>
+
+
+    </div>
+</body>
+
+</html>

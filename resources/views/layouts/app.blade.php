@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -43,7 +43,7 @@
             class="fixed bottom-[4.5rem] md:bottom-[7.5rem] right-6 z-50 w-24 h-24 md:w-28 md:h-28">
             <img src="{{ asset('images/home-top-button-to-reservation.png') }}"
                 alt="ご予約はこちらボタン"
-                class="w-full h-full object-contain">
+                class="hover:brightness-110 w-full h-full object-contain">
         </a>
 
         <!-- トップへ戻るボタン（ご予約ボタンの下に表示） -->

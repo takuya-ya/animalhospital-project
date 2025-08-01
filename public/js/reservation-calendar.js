@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 altInput: true,
                 altFormat: "Y年m月d日",
                 minDate: "today",
+                maxDate: new Date().fp_incr(60),
                 disable: [
                     function (date) {
                         return date.getDay() === 0;

@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HolidayController;
-use App\Http\Controllers\Admin\NewsController;
 
 
 use App\Models\Reservation;
@@ -22,22 +21,11 @@ use App\Models\Reservation;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
+// change
 // フロントエンドのルート
-Route::get('/', function () {
-    $newsService = app(\App\Services\NewsService::class);
-    $latestNews = $newsService->getLatest(5);
-    return view('pages.home', compact('latestNews'));
-});
+Route::get('/', [HolidayController::class, 'home'])->name('home');
 
 Route::get('/faq', function () {
     return view('pages.faq');
@@ -68,8 +56,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Authentication routes
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AdminAuthController::class, 'login']);
-    Route::get('/register', [AdminAuthController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [AdminAuthController::class, 'register']);
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
 
@@ -77,7 +63,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('reservations', ReservationController::class);
         Route::resource('holidays', HolidayController::class);
-        Route::resource('news', NewsController::class);
     });
 });
 

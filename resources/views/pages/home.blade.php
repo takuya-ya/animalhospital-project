@@ -33,22 +33,41 @@
                 {{-- 見出し（中央揃えにするために左右画像含めflex） --}}
                 <div class="flex items-center justify-center space-x-2 mx-auto">
                     <img src="{{ asset('images/home-info.png') }}" alt="左画像" style="height: 40px;">
-                    <h2 class="text-lg font-bold" style="font-size: 1.2rem;">お知らせ</h2>
+                    <h2 class="text-3xl font-bold" >お知らせ</h2>
                     <img src="{{ asset('images/home-info.png') }}" alt="右画像" style="height: 40px;">
                 </div>
             </div>
 
             {{-- お知らせリスト枠 --}}
             <div class="bg-white border-2 border-[#FD8C07] rounded p-10 relative mt-10">
-                {{-- お知らせ内容 --}}
-                <x-latest-news :latestNews="$latestNews" />
+                {{-- お知らせの内容 --}}
+                <ul class="space-y-3 text-sm text-left">
+                    @foreach($holydaysNews as $holiday)
+                    <li class="text-left text-sm leading-relaxed">
+                        <span>{{ $holiday->updated_at->format('Y.m.d')  }}</span>
+                        <span style="color:#FD8C07">{{ $holiday->holiday_date->format('n月j日') }}</span>
+                        <span>{{ $holiday->description }}</span>
+                    </li>
+
+                    {{-- 区切り線（最後以外） --}}
+                    @unless($loop->last)
+                    <div class="max-w-full mb-2"
+                        style="height: 3px;
+                background-image: radial-gradient(circle, #715433 1px, transparent 1px);
+                background-size: 3px 3px;
+                background-repeat: repeat-x;
+                border-radius: 3px;">
+                    </div>
+                    @endunless
+                    @endforeach
+                </ul>
             </div>
         </div>
 
         <div class="max-w-[960px] mx-auto px-4">
 
             <div class="w-full mx-auto py-6">
-                <h1 class="text-2xl font-bold text-center mt-6 mb-3">当院について</h1>
+                <h1 class="text-3xl font-bold text-center mt-6 mb-3">当院について</h1>
                 <div class="w-full mb-10"
                     style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -72,7 +91,7 @@
                             style="background-color: rgba(176, 243, 59, 0.2);">
                             {{-- 開業理念 --}}
                             <h2 class="text-2xl font-bold">開業理念</h2>
-                            <p class="text-sm text-base leading-loose">
+                            <p class="text-sm text-base leading-loose" style="font-size: 0.8rem;">
                                 当院はイヌ、ネコのほか、ウサギ、小鳥、爬虫類などエキゾチック動物の診察も実施しております。
                                 エキゾチック動物はイヌやネコに比べ、その生態や飼育方法、また病気や治療に関していまだに不明な点も多く、
                                 日夜、飼育や病気の情報が更新されています。当院ではそれらの新しく正確な情報と知識を診療に役立てるほか、
@@ -92,7 +111,7 @@
             </div>
 
             <div class="w-full mx-auto py-6">
-                <h1 class="text-2xl font-bold text-center mt-6 mb-3">診察のご案内</h1>
+                <h1 class="text-3xl font-bold text-center mt-6 mb-3">診察のご案内</h1>
                 <div class="mb-10"
                     style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -122,6 +141,7 @@
                         <a href="/guide">
                             <img src="{{ asset('images/home-btn-view-details.png') }}"
                                 alt="詳しく見るボタン"
+                                class="hover:brightness-110"
                                 style="width: 180px; margin-left: auto; margin-right: auto;">
                         </a>
 
@@ -130,7 +150,7 @@
             </div>
 
             <div class="w-full mx-auto py-6">
-                <h1 class="text-2xl font-bold text-center mt-6 mb-3">スタッフ紹介</h1>
+                <h1 class="text-3xl font-bold text-center mt-6 mb-3">スタッフ紹介</h1>
                 <div class="mb-10"
                     style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -151,6 +171,7 @@
                         <a href="/staff">
                             <img src="{{ asset('images/home-btn-view-details.png') }}"
                                 alt="詳しく見るボタン"
+                                class="hover:brightness-110"
                                 style="width: 180px; margin-left: auto; margin-right: auto;">
                         </a>
                     </div>
@@ -164,7 +185,7 @@
             </div>
 
             <div class="w-full mx-auto py-6">
-                <h1 class="text-2xl font-bold text-center mt-6 mb-3">院内・設備紹介</h1>
+                <h1 class="text-3xl font-bold text-center mt-6 mb-3">院内・設備紹介</h1>
                 <div class="mb-10"
                     style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -192,6 +213,7 @@
                         <a href="/facility">
                             <img src="{{ asset('images/home-btn-view-details.png') }}"
                                 alt="詳しく見るボタン"
+                                class="hover:brightness-110"
                                 style="width: 180px; margin-left: auto; margin-right: auto;">
                         </a>
                     </div>
@@ -199,38 +221,50 @@
             </div>
 
 
-                <a href="#">
-                    <!-- スマホ用画像：幅が md 未満のとき表示 -->
-                    <img src="{{ asset('images/home-banner-to-hotel-sp.png') }}"
-                        alt="スマホ用画像"
-                        class="block md:hidden w-full mb-6">
+            <a href="#">
+                <!-- スマホ用画像：幅が md 未満のとき表示 -->
+                <img src="{{ asset('images/home-banner-hotel-sp.png') }}"
+                    alt="スマホ用画像"
+                    class="hover:brightness-110 block md:hidden w-full mb-6">
 
-                    <!-- PC用画像：幅が md 以上のとき表示 -->
-                    <img src="{{ asset('images/home-banner-to-hotel-pc.png') }}"
-                        alt="PC用画像"
-                        class="hidden md:block w-full mb-6">
+                <!-- PC用画像：幅が md 以上のとき表示 -->
+                <img src="{{ asset('images/home-banner-hotel-pc.png') }}"
+                    alt="PC用画像"
+                    class="hover:brightness-110 hidden md:block w-full mb-6">
+            </a>
+
+            <div class="w-full flex flex-col md:flex-row items-center justify-center">
+                <a href="/faq">
+                    <img src="{{ asset('images/home-banner-faq-pcsp.png') }}" class="w-full hover:brightness-110" alt="よくある質問">
                 </a>
-
-                <div class="w-full flex flex-col md:flex-row items-center justify-center">
-                    <a href="/faq">
-                        <img src="{{ asset('images/home-banner-to-faq.png') }}" class="w-full" alt="よくある質問">
-                    </a>
-                    <a href="/recruit">
-                        <img src="{{ asset('images/home-banner-to-recruit.png') }}" class="w-full" alt="採用情報">
-                    </a>
-                </div>
-
-                <a href="/reservations">
-                    <!-- スマホ用画像（768px未満で表示） -->
-                    <img src="{{ asset('images/home-banner-to-reservation-sp.png') }}"
-                        alt="診察予約（スマホ）"
-                        class="block md:hidden w-full mt-6">
-
-                    <!-- PC用画像（768px以上で表示） -->
-                    <img src="{{ asset('images/home-banner-to-reservation-pc.png') }}"
-                        alt="診察予約（PC）"
-                        class="hidden md:block w-full mt-6">
+                <a href="/recruit">
+                    <img src="{{ asset('images/home-banner-recruit-pcsp.png') }}" class="w-full hover:brightness-110" alt="採用情報">
                 </a>
+            </div>
+
+            <a href="/reservations">
+                <!-- スマホ用画像（768px未満で表示） -->
+                <img src="{{ asset('images/home-banner-reservation-sp.png') }}"
+                    alt="診察予約（スマホ）"
+                    class="hover:brightness-110 block md:hidden w-full mt-6">
+
+                <!-- PC用画像（768px以上で表示） -->
+                <img src="{{ asset('images/home-banner-reservation-pc.png') }}"
+                    alt="診察予約（PC）"
+                    class="hover:brightness-110 hidden md:block w-full mt-6">
+            </a>
+
+            <a href="https://at-portfolio.sakura.ne.jp/wordpress/" target="_blank" rel="noopener noreferrer">
+                <!-- スマホ用画像（768px未満で表示） -->
+                <img src="{{ asset('images/home-banner-blog-sp.png') }}"
+                    alt="blog（スマホ）"
+                    class="hover:brightness-110 block md:hidden w-full mt-12">
+
+                <!-- PC用画像（768px以上で表示） -->
+                <img src="{{ asset('images/home-banner-blog-pc.png') }}"
+                    alt="blog（PC）"
+                    class="hover:brightness-110 hidden md:block w-full mt-20">
+            </a>
 
         </div>
 </x-app-layout>

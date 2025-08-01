@@ -1,21 +1,49 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('休診日管理') }}
             </h2>
-            <a href="{{ route('admin.holidays.create') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            <a href="{{ route('admin.holidays.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 新規休診日登録
             </a>
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="pt-12 pb-o">
+        <div class="max-w-[960px] mx-auto px-4">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-6 text-gray-900 px-3">
                     @if($holidays->count() > 0)
-                        <div class="overflow-x-auto">
+                        <!-- スマホ版テーブル（md未満） -->
+                        <div class="block md:hidden">
+                            <table class="w-full table-fixed border-collapse">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="w-1/2 px-6 py-3 text-center text-base font-semibold text-gray-700">休診日</th>                                        {{-- カラム間の余白 --}}
+                                        <th class="w-1/2 px-6 py-3 text-center text-base font-semibold text-gray-700">理由</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($holidays as $holiday)
+                                    <tr class="border-t border-gray-200">
+                                        <td class="w-1/2 px-6 py-3 text-center">
+                                            <a href="{{ route('admin.holidays.show', $holiday) }}"
+                                            class="text-base font-bold text-indigo-600 hover:underline">
+                                                {{ $holiday->holiday_date->format('Y年n月j日(D)') }}
+                                            </a>
+                                        </td>
+                                        <td class="w-1/2 px-6 py-3 text-center text-base text-gray-700">
+                                            {{ $holiday->description ?: '説明なし' }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                        <!-- タブレット以上の通常テーブル（md以上） -->
+                        <div class="hidden md:block overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
@@ -79,7 +107,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                         <div class="mt-6">
                             {{ $holidays->links() }}
                         </div>
@@ -104,4 +131,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

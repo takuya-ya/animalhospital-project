@@ -12,7 +12,7 @@
     <div class="m-auto max-w-[960px]">
         {{-- 本文 --}}
         <div class="w-full mx-auto px-4 py-6">
-            <h1 class="text-2xl font-bold text-center mt-6 mb-3">診察のご案内</h1>
+            <h1 class="text-3xl font-bold text-center mt-6 mb-3">診察のご案内</h1>
             <div class="w-full mb-10"
                 style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -123,7 +123,7 @@
                         できるだけ多くの選択肢を提示させていただき、その中で最良と思われるものを、飼い主様ともよく相談し選ぶよう努めます。
                     </p>
                     <div class="h-40 rounded overflow-hidden relative">
-                        <img src="{{ asset('images/home-top-slide-04.png') }}"
+                        <img src="{{ asset('images/guide-5.png') }}"
                             class="absolute top-4 h-auto w-full object-cover"
                             alt="ガイドページ画像5">
                     </div>

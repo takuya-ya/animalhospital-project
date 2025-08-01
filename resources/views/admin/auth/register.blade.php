@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <div class="max-w-[960px] mx-auto px-4">
     <div class="mb-4 text-sm text-gray-600 text-center">
         <h2 class="text-xl font-semibold text-gray-900 mb-2">スタッフ登録</h2>
         <p>新しいスタッフアカウントを作成します</p>
@@ -59,5 +60,6 @@
         <p class="text-xs text-gray-500">
             一般のお客様は <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-800">こちら</a> から登録してください
         </p>
+    </div>
     </div>
 </x-guest-layout>

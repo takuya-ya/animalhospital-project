@@ -11,8 +11,8 @@
 
     {{-- 本文 --}}
     {{-- タイトル --}}
-    <div class="max-w-4xl mx-auto px-4 py-6">
-        <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">採用情報</h1>
+    <div class="max-w-[960px] mx-auto px-4 py-6">
+        <h1 class="text-3xl font-bold text-center mt-6 mb-3" style="color:#715433">採用情報</h1>
         <div class="max-w-full mb-10"
             style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -39,14 +39,14 @@
     </div>
 
     {{-- 採用イメージ画像 --}}
-    <div class="w-full max-w-[900px] aspect-[15/8] overflow-hidden rounded-lg mx-auto bg-gray-100">
+    <div class="max-w-[800px] aspect-[15/8] overflow-hidden rounded-lg mx-auto bg-gray-100">
         <img src="/images/home-contents-03.png" class="w-full h-full object-cover object-top" alt="Image">
     </div>
 
 
 
     {{-- 採用情報01 --}}
-    <div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="max-w-[960px] mx-auto px-4 py-6">
         <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">動物病院スタッフ（正社員）募集</h1>
         <div class="max-w-full"
             style="height: 6px;
@@ -58,7 +58,7 @@
     </div>
 
     {{-- 採用詳細01 --}}
-    <div class="max-w-4xl w-full mx-auto px-4 overflow-hidden">
+    <div class="max-w-[960px] w-full mx-auto px-4 overflow-hidden">
         <table class="min-w-full table-auto border-t border-b border-[#715433] divide-y divide-[#715433]">
             <tbody class="divide-y divide-[#715433]">
                 <tr class="bg-white">
@@ -99,7 +99,7 @@
     </div>
 
     {{-- 採用情報02 --}}
-    <div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="max-w-[960px] mx-auto px-4 py-6">
         <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">動物病院スタッフ（パート）募集</h1>
         <div class="max-w-full"
             style="height: 6px;
@@ -111,7 +111,7 @@
     </div>
 
     {{-- 採用詳細02 --}}
-    <div class="max-w-4xl w-full mx-auto px-4 overflow-hidden">
+    <div class="max-w-[960px] w-full mx-auto px-4 overflow-hidden">
         <table class="min-w-full table-auto border-t border-b border-[#715433] divide-y divide-[#715433]">
             <tbody class="divide-y divide-[#715433]">
                 <tr class="bg-white">
@@ -155,7 +155,7 @@
     {{-- コピー --}}
     <div>
         <!-- スマホ用（1段落） -->
-        <p class="block md:hidden text-[#715433] text-base text-center leading-loose mt-10 mb-20">
+        <p class="block md:hidden text-[#715433] text-base text-center leading-loose mt-10 mb-20 px-4">
             当院では獣医師、愛玩動物看護師（免許取得予定者含む）
             他、就職を希望するかたの実習を受け入れております。
             面接、実習希望の方も先ずは下記フォームよりご連絡下さい。
@@ -173,7 +173,7 @@
 
     {{-- お問い合わせフォーム --}}
     {{-- タイトル --}}
-    <div class="max-w-4xl mx-auto px-4">
+    <div class="max-w-[960px] mx-auto px-4">
         <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">求人等のお問い合わせ</h1>
         <div class="max-w-full mb-10"
             style="height: 6px;

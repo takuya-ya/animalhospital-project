@@ -1,5 +1,5 @@
 <!-- resources/views/partials/footer.blade.php -->
-<footer class="text-sm text-[#715433] pt-10 pb-4 relative">
+<footer class="text-sm text-[#715433] pt-10 relative">
     {{-- アクセス --}}
     <div class="bg-[#FFFFFF] scroll-mt-40" id="access">
         <div class="max-w-[960px] mx-auto px-4">
