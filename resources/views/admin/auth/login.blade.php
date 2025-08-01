@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <div class="max-w-[960px] mx-auto px-4">
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -37,11 +38,7 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('admin.register') }}">
-                {{ __('新規スタッフ登録') }}
-            </a>
-
+        <div class="flex items-center justify-end mt-4">           
             <x-primary-button class="ml-4">
                 {{ __('ログイン') }}
             </x-primary-button>
@@ -52,5 +49,6 @@
         <p class="text-xs text-gray-500">
             一般のお客様は <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-800">こちら</a> からログインしてください
         </p>
+    </div>
     </div>
 </x-guest-layout>

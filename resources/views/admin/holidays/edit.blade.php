@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
             {{ __('休診日編集') }}
@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-[960px] mx-auto px-4">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <!-- 現在の休診日情報 -->
@@ -76,9 +76,9 @@
                         </div>
                         @endif
 
-                        <div class="flex items-center justify-end mt-6 space-x-4">
+                        <div class="flex items-center justify-between mt-6 space-x-4">
                             <a href="{{ route('admin.holidays.show', $holiday) }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                                戻る
+                                詳細に戻る
                             </a>
                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 更新
@@ -89,4 +89,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

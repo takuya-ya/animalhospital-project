@@ -2,21 +2,30 @@
 <header class="sticky top-0 bg-white bg-opacity-90 shadow z-50" x-data="{ open: false }">
     <div class="max-w-[960px] mx-auto flex justify-between items-center p-4">
         <!-- ロゴ -->
-        <a href="{{ url('/') }}">
-            <img src="{{ asset('images/header-footer-logo.png') }}" alt="ロゴ" class="w-60 sm:w-[350px] border-none outline-none hover:brightness-110">
+        <a href="{{ url('/') }}" class="focus:outline-none focus:ring-0">
+            <img src="{{ asset('images/header-footer-logo.png') }}"
+                alt="ロゴ"
+                class="inline-block w-60 sm:w-[350px] border-none outline-none shadow-none hover:brightness-110">
         </a>
 
-        <!-- ハンバーガーアイコン（スマホのみ表示） -->
-        <button @click="open = !open" class="sm:hidden focus:outline-none">
-            <svg class="w-10 h-10 text-[#715433]" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
+
+<!-- ハンバーガー／✕ 切り替えボタン -->
+<button @click="open = !open" class="sm:hidden relative w-10 h-10 flex flex-col justify-center items-center z-50">
+    <!-- 三本線 -->
+    <div class="w-8 h-0.5 my-1 bg-[#715433] transition-all duration-300"
+         :class="{ 'rotate-45 translate-y-2.5': open }"></div>
+    <div class="w-8 h-0.5 my-1 bg-[#715433] my-1 transition-all duration-300"
+         :class="{ 'opacity-0': open }"></div>
+    <div class="w-8 h-0.5 my-1 bg-[#715433] transition-all duration-300"
+         :class="{ '-rotate-45 -translate-y-2.5': open }"></div>
+</button>
+
+
+
+
 
         <!-- PC用ナビ -->
-        <div class="hidden sm:flex max-w-[960px] flex justify-between font-bold pt-4">
+        <div class="hidden sm:flex max-w-[960px] flex justify-between font-bold">
             <nav class="items-center text-center ">
                 <div class="flex justify-between mb-2">
                     <a href="https://www.instagram.com/mutsuki_smallanimalhospital/"
@@ -52,7 +61,8 @@
 
 
     <!-- スマホ用メニュー -->
-    <nav x-show="open" x-transition class="sm:hidden px-4 pb-4 space-y-2 font-bold bg-white text-center">
+    <nav x-show="open" x-transition class="sm:hidden fixed text-[20px] top-20 left-0 w-full h-full z-40 bg-white/70 backdrop-blur pt-5 px-4 pb-4 space-y-3 font-bold bg-white text-center">
+
         <a href="{{ url('/') }}" class="block py-1 hover:text-orange-500">ホーム</a>
         <a href="{{ url('/guide') }}" class="block py-1 hover:text-orange-500">診察のご案内</a>
         <a href="{{ url('/staff') }}" class="block py-1 hover:text-orange-500">スタッフ紹介</a>

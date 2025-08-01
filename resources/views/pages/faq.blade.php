@@ -15,7 +15,7 @@
         {{-- 本文 --}}
         {{-- タイトル --}}
         <div class="py-6">
-            <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">よくある質問</h1>
+            <h1 class="text-3xl font-bold text-center mt-6 mb-3" style="color:#715433">よくある質問</h1>
             <div class="max-w-full mb-10"
                 style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);

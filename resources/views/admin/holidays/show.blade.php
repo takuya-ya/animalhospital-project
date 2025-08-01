@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
             {{ __('休診日詳細') }}
@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-[960px] mx-auto px-4">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="mb-6">
@@ -105,12 +105,12 @@
                     </div>
                     @endif
 
-                    <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
-                        <a href="{{ route('admin.holidays.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                    <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200 [@media(max-width:374px)]:flex-col [@media(max-width:374px)]:space-y-2">
+                        <a href="{{ route('admin.holidays.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded [@media(max-width:374px)]:self-start">
                             一覧に戻る
                         </a>
                         
-                        <div class="space-x-2">
+                        <div class="space-x-2 [@media(max-width:374px)]:flex [@media(max-width:374px)]:w-full [@media(max-width:374px)]:justify-end">
                             <a href="{{ route('admin.holidays.edit', $holiday) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                                 編集
                             </a>
@@ -127,4 +127,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

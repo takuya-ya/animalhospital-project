@@ -17,6 +17,30 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard');
+        $todayReservations = Reservation::whereDate('reservation_datetime', today())
+            ->with('user')
+            ->orderBy('reservation_datetime')
+            ->get();
+
+        $upcomingReservations = Reservation::whereDate('reservation_datetime', '>', today())
+            ->with('user')
+            ->orderBy('reservation_datetime')
+            ->take(10)
+            ->get();
+
+        $totalUsers = User::count();
+        $totalReservations = Reservation::count();
+        $upcomingHolidays = Holiday::where('holiday_date', '>=', today())
+            ->orderBy('holiday_date')
+            ->take(5)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'todayReservations',
+            'upcomingReservations',
+            'totalUsers',
+            'totalReservations',
+            'upcomingHolidays'
+        ));
     }
 }

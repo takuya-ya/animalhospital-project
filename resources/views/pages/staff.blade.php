@@ -12,7 +12,7 @@
     <div class="m-auto max-w-[960px]">
         {{-- 本文 --}}
         <div class="w-full mx-auto px-4 py-6">
-            <h1 class="text-2xl font-bold text-center mt-6 mb-3">スタッフ紹介</h1>
+            <h1 class="text-3xl font-bold text-center mt-6 mb-3">スタッフ紹介</h1>
             <div class="w-full mb-10"
                 style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -352,5 +352,18 @@
                 </div>
             </div>
         </div>
+        <a href="/recruit">
+            <!-- スマホ用画像（768px未満で表示） -->
+            <img src="{{ asset('images/home-banner-recruit-pcsp.png') }}"
+                alt="採用情報（スマホ）"
+                class="hover:brightness-110 block md:hidden w-full mt-6">
+
+            <!-- PC用画像（768px以上で表示） -->
+            <img src="{{ asset('images/home-banner-recruit-pc.png') }}"
+                alt="採用情報（PC）"
+                class="hover:brightness-110 hidden md:block w-full mt-6">
+        </a>
     </div>
+
+
 </x-app-layout>

@@ -46,9 +46,20 @@
                 </a>
                 @endif
 
-                <x-primary-button class="ms-3">
+                <x-primary-button class="ms-3 bg-orange-500 hover:bg-gray-400 active:bg-orange-600">
                     {{ __('Log in') }}
                 </x-primary-button>
             </div>
         </form>
+    </div>
+
+    <!-- 新規アカウント登録ボタン -->
+    <div class="mt-6 text-center">
+        <a href="{{ route('register') }}"
+            class="inline-block w-[370px] px-6 py-2 text-sm font-semibold text-white bg-orange-500 rounded-lg hover:bg-orange-500 transition text-center"
+            style="font-family: 'M PLUS Rounded 1c';">
+            新規アカウント登録はこちらから
+        </a>
+    </div>
+
 </x-guest-layout>
