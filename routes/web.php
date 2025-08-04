@@ -25,7 +25,7 @@ use App\Models\Reservation;
 
 // change
 // フロントエンドのルート
-Route::get('/', [HolidayController::class, 'home'])->name('home');
+Route::get('/', function () { return view('pages.home'); })->name('home');
 
 Route::get('/faq', function () {
     return view('pages.faq');
