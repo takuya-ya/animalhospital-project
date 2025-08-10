@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -25,7 +26,7 @@ use App\Models\Reservation;
 
 // change
 // フロントエンドのルート
-Route::get('/', function () { return view('pages.home'); })->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/faq', function () {
     return view('pages.faq');
@@ -69,9 +70,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::middleware(['auth'])->group(function () {
     // 予約ルート
     // Route::resource('reservations', ReservationController::class);
-        Route::resource('reservations', \App\Http\Controllers\ReservationController::class);
+    Route::resource('reservations', \App\Http\Controllers\ReservationController::class);
 
-    
+
 
     // プロフィール関連
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -80,16 +81,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // API Routes for AJAX
-Route::get('/api/holidays', function() {
+Route::get('/api/holidays', function () {
     return \App\Models\Holiday::where('holiday_date', '>=', now()->toDateString())
         ->pluck('holiday_date')
         ->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'));
 });
 
-Route::get('/api/reservations/{date}', function($date) {
+Route::get('/api/reservations/{date}', function ($date) {
     return \App\Models\Reservation::whereDate('reservation_datetime', $date)
         ->pluck('reservation_datetime')
         ->map(fn($datetime) => \Carbon\Carbon::parse($datetime)->format('H:i'));
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

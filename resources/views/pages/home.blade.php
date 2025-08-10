@@ -33,7 +33,7 @@
                 {{-- 見出し（中央揃えにするために左右画像含めflex） --}}
                 <div class="flex items-center justify-center space-x-2 mx-auto">
                     <img src="{{ asset('images/home-info.png') }}" alt="左画像" style="height: 40px;">
-                    <h2 class="text-3xl font-bold" >お知らせ</h2>
+                    <h2 class="text-3xl font-bold">お知らせ</h2>
                     <img src="{{ asset('images/home-info.png') }}" alt="右画像" style="height: 40px;">
                 </div>
             </div>
@@ -42,7 +42,7 @@
             <div class="bg-white border-2 border-[#FD8C07] rounded p-10 relative mt-10">
                 {{-- お知らせの内容 --}}
                 <ul class="space-y-3 text-sm text-left">
-                    @foreach($holydaysNews as $holiday)
+                    @foreach($holidays as $holiday)
                     <li class="text-left text-sm leading-relaxed">
                         <span>{{ $holiday->updated_at->format('Y.m.d')  }}</span>
                         <span style="color:#FD8C07">{{ $holiday->holiday_date->format('n月j日') }}</span>

@@ -39,11 +39,11 @@ class HolidayController extends Controller
 
     public function show(Holiday $holiday)
     {
-            // $holiday->holiday_date = Carbon::parse($holiday->holiday_date);
+        // $holiday->holiday_date = Carbon::parse($holiday->holiday_date);
 
         return view('admin.holidays.show', compact('holiday'));
     }
-    
+
     public function edit(Holiday $holiday)
     {
         return view('admin.holidays.edit', compact('holiday'));
@@ -67,11 +67,5 @@ class HolidayController extends Controller
         $holiday->delete();
         return redirect()->route('admin.holidays.index')
             ->with('success', '休診日を削除しました。');
-    }
-
-    public function home()
-    {
-        $holydaysNews = Holiday::orderBy('holiday_date', 'desc')->get();
-        return view('pages.home', compact('holydaysNews'));
     }
 }
