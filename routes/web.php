@@ -60,7 +60,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
 
-    Route::middleware('auth:admin')->group(function () {
+    Route::middleware('auth.admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('reservations', ReservationController::class);
         Route::resource('holidays', HolidayController::class);
