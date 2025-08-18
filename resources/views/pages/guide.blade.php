@@ -30,12 +30,12 @@
 
 
         <div class="flex items-center justify-center space-x-4 mb-15">
-            <img src="{{ asset('images/guide-flow-of-visit-lt.png') }}" alt="左画像" class="h-17 w-auto">
-            <h1 class="text-2xl font-bold text-center mt-6">ご来院の流れ</h1>
-            <img src="{{ asset('images/guide-flow-of-visit-rt.png') }}" alt="右画像" class="h-17 w-auto">
+            <img src="{{ asset('images/guide-flow-of-visit-lt.png') }}" alt="左画像" class="h-14 w-auto">
+            <h1 class="text-3xl font-bold text-center mt-6">ご来院の<br class="block md:hidden">流れ</h1>
+            <img src="{{ asset('images/guide-flow-of-visit-rt.png') }}" alt="右画像" class="h-14 w-auto">
         </div>
-        <div class="max-w-5xl mx-auto mb-10 grid grid-cols-1 sm:grid-cols-2 gap-10 p-10">
-            <div class="rounded p-6 flex flex-col space-y-2"
+        <div class="mx-auto mb-10 grid grid-cols-1 sm:grid-cols-2 gap-10 p-4">
+            <div class="rounded-xl p-6 flex flex-col space-y-2"
                 style="background-color: rgba(176, 243, 59, 0.2);">
                 {{-- ご来院 --}}
                 <h2 class="text-3xl font-bold" style="color:#FD8C07">1.ご来院</h2>
@@ -55,24 +55,24 @@
 
 
             {{-- 受付 --}}
-            <div class="rounded p-6 flex flex-col space-y-2"
+            <div class="rounded-xl p-6 flex flex-col space-y-2"
                 style="background-color: rgba(176, 243, 59, 0.2);">
                 <h2 class="text-3xl font-bold" style="color:#FD8C07">2.受付</h2>
-                <!-- flex: モバイルは縦（flex-col）、中画面以上は横（md:flex-row） -->
-                <div class="rounded p-4 flex flex-col md:flex-row items-center md:space-x-8 space-y-4 md:space-y-0">
-                    <p class="text-sm max-w-xl leading-loose text-center md:text-left">
+                <div class="flex flex-col items-center space-y-4">
+                    <p class="text-sm max-w-xl leading-loose">
                         ご来院の際は、院内設置のQRコードリーダーに診察券のQRコードをかざして受付を行ってください。<br>
                         読み取りが完了しましたら、受付表が発行されますので、お受け取りのうえ順番までお待ちください。
                     </p>
                     <img src="{{ asset('images/guide-2.png') }}" class="w-48 rounded" alt="ガイドページ画像2">
                 </div>
 
+
             </div>
 
 
 
             {{-- 待合 --}}
-            <div class="rounded p-6 flex flex-col space-y-2"
+            <div class="rounded-xl p-6 flex flex-col space-y-2"
                 style="background-color: rgba(176, 243, 59, 0.2);">
                 <h2 class="text-3xl font-bold" style="color:#FD8C07">3.待合</h2>
                 <p class="text-lg border-l-4 pl-3 py-0.5 inline-block leading-tight" style="border-color:#0CC0DF;">
@@ -99,7 +99,7 @@
             </div>
 
             {{-- 診察 --}}
-            <div class="rounded p-6 flex flex-col space-y-2"
+            <div class="rounded-xl p-6 flex flex-col space-y-2"
                 style="background-color: rgba(176, 243, 59, 0.2);">
                 <h2 class="text-3xl font-bold" style="color:#FD8C07">4.診察について</h2>
                 <div class="max-w-5xl mx-auto flex flex-col space-y-2">
@@ -109,12 +109,12 @@
                         その子の性格や暮らしぶりを知ることが、より良い診療につながると考えています。<br>
                         視診、触診、聴診も行い、疑われる病気と必要な検査、料金などを十分にご説明して各種検査へ進みます。
                     </p>
-                    <img src="{{ asset('images/guide-4.png') }}" class="w-auto max-w-full rounded" alt="ガイドページ画像4">
+                    <img src="{{ asset('images/guide-4.png') }}" class="w-auto max-w-full rounded-xl" alt="ガイドページ画像4">
                 </div>
             </div>
 
             {{-- 治療 --}}
-            <div class="rounded p-6 flex flex-col space-y-2"
+            <div class="rounded-xl p-6 flex flex-col space-y-2"
                 style="background-color: rgba(176, 243, 59, 0.2);">
                 <h2 class="text-3xl font-bold" style="color:#FD8C07">5.治療</h2>
                 <div class="max-w-5xl mx-auto flex flex-col space-y-1">
@@ -122,7 +122,7 @@
                         同じ病気であっても、症例に応じて様々な治療の選択肢があります。<br>
                         できるだけ多くの選択肢を提示させていただき、その中で最良と思われるものを、飼い主様ともよく相談し選ぶよう努めます。
                     </p>
-                    <div class="h-40 rounded overflow-hidden relative">
+                    <div class="h-40 rounded-xl overflow-hidden relative">
                         <img src="{{ asset('images/guide-5.png') }}"
                             class="absolute top-4 h-auto w-full object-cover"
                             alt="ガイドページ画像5">
@@ -132,14 +132,14 @@
             </div>
 
             {{-- お会計 --}}
-            <div class="rounded p-6 flex flex-col space-y-2"
+            <div class="rounded-xl p-6 flex flex-col space-y-2"
                 style="background-color: rgba(176, 243, 59, 0.2);">
                 <h2 class="text-3xl font-bold" style="color:#FD8C07">6.お会計</h2>
                 <div class="max-w-5xl mx-auto flex flex-col space-y-2">
                     <p class="text-sm mb-3 leading-loose">
                         各種クレジットカードがご使用いただけます。分割でのお払いも可能です。
                     </p>
-                    <img src="{{ asset('images/guide-6.png') }}" class="h-30 rounded object-cover pb-3" alt="クレジットカード種類">
+                    <img src="{{ asset('images/guide-6.png') }}" class="h-30 rounded-xl object-cover pb-3" alt="クレジットカード種類">
                 </div>
                 <p class="text-lg border-l-4 pl-3 py-0.5 inline-block leading-tight" style="border-color:#0CC0DF;">
                     ペット保険
@@ -153,7 +153,7 @@
         </div>
 
         <div class="w-full mx-auto px-4 py-6">
-            <h1 class="text-2xl font-bold text-center mt-6 mb-3">診察対象動物</h1>
+            <h1 id="target_animal" class="text-2xl font-bold text-center mt-6 mb-3 scroll-mt-[25vh]">診察対象動物</h1>
             <div class="w-full mb-10"
                 style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -168,8 +168,8 @@
                 気軽に受診していただける病院を目指しております。
             </p>
             <div class="w-full flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 mb-10">
-                <img src="{{ asset('images/guide-animal-01.png') }}" class="w-80 md:w-96 h-64 object-cover rounded" alt="ガイドページ動物画像1">
-                <img src="{{ asset('images/guide-animal-02.png') }}" class="w-80 md:w-96 h-64 object-cover rounded" alt="ガイドページ動物画像2">
+                <img src="{{ asset('images/guide-animal-01.png') }}" class="w-80 md:w-96 h-64 object-cover rounded-xl" alt="ガイドページ動物画像1">
+                <img src="{{ asset('images/guide-animal-02.png') }}" class="w-80 md:w-96 h-64 object-cover rounded-xl" alt="ガイドページ動物画像2">
             </div>
 
 
@@ -211,8 +211,8 @@
             </div>
 
             <div class="w-full flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 mb-10">
-                <img src="{{ asset('images/guide-animal-03.png') }}" class="w-80 md:w-96 h-64 object-cover rounded" alt="ガイドページ動物画像3">
-                <img src="{{ asset('images/guide-animal-04.png') }}" class="w-80 md:w-96 h-64 object-cover rounded" alt="ガイドページ動物画像4">
+                <img src="{{ asset('images/guide-animal-03.png') }}" class="w-80 md:w-96 h-64 object-cover rounded-xl" alt="ガイドページ動物画像3">
+                <img src="{{ asset('images/guide-animal-04.png') }}" class="w-80 md:w-96 h-64 object-cover rounded-xl" alt="ガイドページ動物画像4">
             </div>
         </div>
     </div>

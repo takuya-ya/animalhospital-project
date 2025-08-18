@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
             {{ __('新規予約作成') }}
         </h2>
     </x-slot>
@@ -45,11 +45,11 @@
                             <x-input-error :messages="$errors->get('reservation_time')" class="mt-2" />
                         </div>
 
-                        <div class="flex items-center justify-end mt-6 space-x-4">
-                            <a href="{{ route('admin.reservations.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                        <div class="flex items-center justify-between mt-6 space-x-4">
+                            <a href="{{ route('admin.reservations.index') }}" class="text-gray-800 font-bold py-2 px-4 rounded hover:brightness-110" style="background-color: #C4C4C4;">
                                 戻る
                             </a>
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button type="submit" class="text-white font-bold py-2 px-4 rounded hover:brightness-110" style="background-color: #FD8C07;">
                                 作成
                             </button>
                         </div>

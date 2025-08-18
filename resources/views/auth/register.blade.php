@@ -1,6 +1,7 @@
 <x-guest-layout>
 
-    <div class=" max-w-md mx-auto p-6 rounded-2xl shadow mt-7 relative" style="background-color: #FFFFFF; border: 2px solid #FFB85C;">
+    <div class=" max-w-md mx-auto p-6 rounded-2xl shadow mt-7 relative" 
+         style="background-color: #FFFFFF; border: 2px solid #FFB85C;">
 
         <!-- 左上にbirds画像（さらに上へ移動）-->
         <img src="/img/birds.png"
@@ -20,7 +21,7 @@
                 <x-input-label for="name" :value="__('Name')" />
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 @error('name')
-                   <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -54,14 +55,18 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+            <div class="flex items-center justify-center mt-4">
+                <a class="underline text-sm text-[#715433] hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
+            </div>
 
-                <x-primary-button class="ms-4">
-                    {{ __('Register') }}
-                </x-primary-button>
+            <div class="text-center pt-4">
+                <button type="submit"
+                    class="w-32 bg-[#FD8C07] text-white font-bold px-6 py-2 rounded-full hover:brightness-75 transition">
+                    登録
+                </button>
             </div>
         </form>
 </x-guest-layout>

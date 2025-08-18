@@ -52,7 +52,7 @@
             x-init="window.addEventListener('scroll', () => show = window.scrollY > 200)"
             x-show="show"
             @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
-            class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-orange-400 text-white text-lg font-bold shadow-md hover:bg-orange-500 transition-opacity duration-300"
+            class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-[#fd8c07] text-white text-lg font-bold shadow-md hover:brightness-110 transition-opacity duration-300"
             x-transition>
             ↑
         </button>

@@ -32,31 +32,34 @@
             <div class="flex justify-between items-center mb-5">
                 {{-- 見出し（中央揃えにするために左右画像含めflex） --}}
                 <div class="flex items-center justify-center space-x-2 mx-auto">
-                    <img src="{{ asset('images/home-info.png') }}" alt="左画像" style="height: 40px;">
+                    <img src="{{ asset('images/home-info.png') }}" alt="左画像" style="height: 35px;">
                     <h2 class="text-3xl font-bold">お知らせ</h2>
-                    <img src="{{ asset('images/home-info.png') }}" alt="右画像" style="height: 40px;">
+                    <img src="{{ asset('images/home-info.png') }}" alt="右画像" style="height: 35px;">
                 </div>
             </div>
 
             {{-- お知らせリスト枠 --}}
-            <div class="bg-white border-2 border-[#FD8C07] rounded p-10 relative mt-10">
+            <div class="bg-white border-2 border-[#FD8C07] rounded-xl p-10 relative mt-10">
                 {{-- お知らせの内容 --}}
                 <ul class="space-y-3 text-sm text-left">
-                    @foreach($holidays as $holiday)
+                    @foreach($holydaysNews as $holiday)
                     <li class="text-left text-sm leading-relaxed">
                         <span>{{ $holiday->updated_at->format('Y.m.d')  }}</span>
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
                         <span style="color:#FD8C07">{{ $holiday->holiday_date->format('n月j日') }}</span>
-                        <span>{{ $holiday->description }}</span>
+                        <span>&nbsp;</span>
+                        <span style="color:#FD8C07">休診日:{{ $holiday->description }}</span>
                     </li>
 
                     {{-- 区切り線（最後以外） --}}
                     @unless($loop->last)
                     <div class="max-w-full mb-2"
                         style="height: 3px;
-                background-image: radial-gradient(circle, #715433 1px, transparent 1px);
-                background-size: 3px 3px;
-                background-repeat: repeat-x;
-                border-radius: 3px;">
+                        background-image: radial-gradient(circle, #715433 1px, transparent 1px);
+                        background-size: 3px 3px;
+                        background-repeat: repeat-x;
+                        border-radius: 3px;">
                     </div>
                     @endunless
                     @endforeach
@@ -87,7 +90,7 @@
                             それらをモチーフとして六ツ木小動物病院と名付けました。
                         </p>
 
-                        <div class="rounded p-6 flex flex-col"
+                        <div class="rounded-xl p-6 flex flex-col"
                             style="background-color: rgba(176, 243, 59, 0.2);">
                             {{-- 開業理念 --}}
                             <h2 class="text-2xl font-bold">開業理念</h2>
@@ -104,7 +107,7 @@
                     <!-- 右：画像カラム -->
                     <div class="h-full w-full max-w-sm flex items-center justify-center">
                         <img src="{{ asset('images/home-contents-01.png') }}"
-                            class="h-full w-auto object-contain rounded"
+                            class="h-full w-auto object-contain rounded-xl"
                             alt="ホームのコンテンツ画像1">
                     </div>
                 </div>
@@ -124,7 +127,7 @@
                     <!-- 左：画像カラム -->
                     <div class="h-full w-full max-w-sm flex items-center justify-center">
                         <img src="{{ asset('images/home-contents-02.png') }}"
-                            class="h-full w-auto object-contain rounded"
+                            class="h-full w-auto object-contain rounded-xl"
                             alt="ホームのコンテンツ画像2">
                     </div>
                     <!-- 右：テキストグループ -->
@@ -178,7 +181,7 @@
                     <!-- 右：テキストグループ -->
                     <div class="h-full w-full max-w-sm flex items-center justify-center">
                         <img src="{{ asset('images/home-contents-03.png') }}"
-                            class="h-full w-auto object-contain rounded"
+                            class="h-full w-auto object-contain rounded-xl"
                             alt="ホームのコンテンツ画像3">
                     </div>
                 </div>
@@ -197,7 +200,7 @@
                     <!-- 左：画像カラム -->
                     <div class="h-full w-full max-w-sm flex items-center justify-center">
                         <img src="{{ asset('images/home-contents-04.png') }}"
-                            class="h-full w-auto object-contain rounded"
+                            class="h-full w-auto object-contain rounded-xl"
                             alt="ホームのコンテンツ画像4">
                     </div>
                     <!-- 右：テキストグループ -->
@@ -221,7 +224,7 @@
             </div>
 
 
-            <a href="#">
+            <a href="{{ url('/facility#pet-hotel') }}">
                 <!-- スマホ用画像：幅が md 未満のとき表示 -->
                 <img src="{{ asset('images/home-banner-hotel-sp.png') }}"
                     alt="スマホ用画像"

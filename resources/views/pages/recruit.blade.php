@@ -39,7 +39,7 @@
     </div>
 
     {{-- 採用イメージ画像 --}}
-    <div class="max-w-[800px] aspect-[15/8] overflow-hidden rounded-lg mx-auto bg-gray-100">
+    <div class="max-w-[800px] aspect-[15/8] overflow-hidden rounded-xl mx-auto bg-gray-100">
         <img src="/images/home-contents-03.png" class="w-full h-full object-cover object-top" alt="Image">
     </div>
 
@@ -47,7 +47,7 @@
 
     {{-- 採用情報01 --}}
     <div class="max-w-[960px] mx-auto px-4 py-6">
-        <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">動物病院スタッフ（正社員）募集</h1>
+        <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">動物病院スタッフ（正社員）<br class="block md:hidden">募集</h1>
         <div class="max-w-full"
             style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -100,7 +100,7 @@
 
     {{-- 採用情報02 --}}
     <div class="max-w-[960px] mx-auto px-4 py-6">
-        <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">動物病院スタッフ（パート）募集</h1>
+        <h1 class="text-2xl font-bold text-center mt-6 mb-3" style="color:#715433">動物病院スタッフ（パート）<br class="block md:hidden">募集</h1>
         <div class="max-w-full"
             style="height: 6px;
             background-image: radial-gradient(circle, #fd8c07 2px, transparent 2px);
@@ -164,7 +164,7 @@
         <!-- PC用（3段落） -->
         <div class="hidden md:block text-[#715433] text-base text-center leading-snug space-y-2 mt-10 mb-20 ">
             <p>当院では獣医師、愛玩動物看護師（免許取得予定者含む）</p>
-            <p>他、就職を希望するかたの実習を受け入れております。</p>
+            <p>他、就職を希望する方の実習を受け入れております。</p>
             <p>面接、実習希望の方も先ずは下記フォームよりご連絡下さい。</p>
         </div>
 
@@ -184,35 +184,52 @@
         </div>
     </div>
 
+    @if(session('success'))
+    <div class="text-[#d72638] text-center font-bold mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <div class="px-6 max-w-xl mx-auto rounded-lg">
-        <form action="#" method="POST" class="space-y-5 text-[#715433]">
+        <form action="{{ route('contact.send') }}" method="POST">
             @csrf
 
-            <div>
-                <label class="block text-sm font-medium mb-1 text-[#715433]">氏名</label>
-                <input type="text" name="name" class="w-full px-4 py-2 border border-[#715433] rounded-md text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]" required>
+            <label class="block text-sm font-medium mb-1 text-[#715433]">氏名</label>
+            <input type="text" name="name" class="w-full px-4 py-2 border border-[#715433] rounded-xl text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]" required><br><br>
+
+            <label class="block text-sm font-medium mb-1 text-[#715433]">メールアドレス</label>
+            <input type="email" name="email" class="w-full px-4 py-2 border border-[#715433] rounded-xl text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]" required><br><br>
+
+            <label class="block text-sm font-medium mb-1 text-[#715433]">電話番号</label>
+            <input type="tel" name="phone" class="w-full px-4 py-2 border border-[#715433] rounded-xl text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]"><br><br>
+
+            <label class="block text-sm font-medium mb-1 text-[#715433]">お問い合わせ項目（複数選択可）</label>
+            <div class="space-y-2 pl-1">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" name="topics[]" value="求人について" class="form-checkbox text-[#715433]">
+                    <span class="ml-2 mr-3">求人について</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" name="topics[]" value="応募について" class="form-checkbox text-[#715433]">
+                    <span class="ml-2 mr-3">応募について</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" name="topics[]" value="実習について" class="form-checkbox text-[#715433]">
+                    <span class="ml-2 mr-3">実習について</span>
+                </label>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium mb-1 text-[#715433]">メールアドレス</label>
-                <input type="email" name="email" class="w-full px-4 py-2 border border-[#715433] rounded-md text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]" required>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium mb-1 text-[#715433]">電話番号</label>
-                <input type="tel" name="phone" class="w-full px-4 py-2 border border-[#715433] rounded-md text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]">
-            </div>
-
-            <div>
+            <div class="mt-4">
                 <label class="block text-sm font-medium mb-1 text-[#715433]">お問い合わせ内容</label>
-                <textarea name="message" rows="4" class="w-full px-4 py-2 border border-[#715433] rounded-md text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]" required></textarea>
+                <textarea name="message" class="w-full px-4 py-2 border border-[#715433] rounded-xl text-[#715433] focus:outline-none focus:ring-2 focus:ring-[#715433]" required></textarea><br><br>
             </div>
 
-            <div class="text-center pt-4">
-                <button type="submit" class="bg-[#00c0de] text-white px-6 py-2 rounded-full hover:bg-[#00aac2] transition">
+            <div class="text-center">
+                <button type="submit" class="bg-[#FD8C07] text-white font-bold w-32 px-6 py-2 rounded-full hover:brightness-110 transition">
                     送信する
                 </button>
             </div>
+
         </form>
     </div>
 

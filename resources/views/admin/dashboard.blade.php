@@ -6,45 +6,48 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-7xl mx-auto sm:m-1 px-4 lg:px-8 space-y-6">
             <!-- 統計情報 -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl">
                     <div class="p-6 text-gray-900">
-                        <div class="flex items-center">
-                            <div class="flex-1">
+                        <div class="flex items-center justify-center sm:justify-between gap-x-7 sm:gap-x-9">
+                            <div class="text-center sm:text-left">
                                 <h3 class="text-sm font-medium text-gray-500">総顧客数</h3>
                                 <p class="text-2xl font-bold text-gray-900">{{ $totalUsers ?? 0 }} 人</p>
                             </div>
-                            <div class="bg-blue-100 p-3 rounded-full">
+                            <div class="bg-blue-100 p-3 rounded-full shrink-0">
                                 <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                    </path>
                                 </svg>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl">
                     <div class="p-6 text-gray-900">
-                        <div class="flex items-center">
-                            <div class="flex-1">
+                        <div class="flex items-center justify-center sm:justify-between gap-x-7 sm:gap-x-9">
+                            <div class="text-center sm:text-left">
                                 <h3 class="text-sm font-medium text-gray-500">総予約数</h3>
                                 <p class="text-2xl font-bold text-gray-900">{{ $totalReservations }} 件</p>
                             </div>
-                            <div class="bg-green-100 p-3 rounded-full">
+                            <div class="bg-green-100 p-3 rounded-full shrink-0">
                                 <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl">
                     <div class="p-6 text-gray-900">
-                        <div class="flex items-center">
-                            <div class="flex-1">
+                        <div class="flex items-center justify-center sm:justify-between gap-x-7 sm:gap-x-9">
+                            <div class="text-center sm:text-left">
                                 <h3 class="text-sm font-medium text-gray-500">本日の予約</h3>
                                 <p class="text-2xl font-bold text-gray-900">{{ $todayReservations->count() }} 件</p>
                             </div>
@@ -57,10 +60,10 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl">
                     <div class="p-6 text-gray-900">
-                        <div class="flex items-center">
-                            <div class="flex-1">
+                        <div class="flex items-center justify-center sm:justify-between gap-x-7 sm:gap-x-9">
+                            <div class="text-center sm:text-left">
                                 <h3 class="text-sm font-medium text-gray-500">今後の予約</h3>
                                 <p class="text-2xl font-bold text-gray-900">{{ $upcomingReservations->count() }} 件</p>
                             </div>
@@ -76,7 +79,7 @@
 
             <!-- 本日の予約 -->
             @if($todayReservations->count() > 0)
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl">
                 <div class="p-6">
                     <h3 class="text-lg font-medium text-gray-900 mb-4">本日の予約 ({{ today()->format('Y年n月j日') }})</h3>
                     <div class="overflow-x-auto">
@@ -111,10 +114,10 @@
 
             <!-- 今後の休診日 -->
             @if($upcomingHolidays->count() > 0)
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl">
                 <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">今後の休診日</h3>
-                    <div class="space-y-2">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4 text-center sm:text-left">今後の休診日</h3>
+                    <div class="flex flex-col items-center sm:items-start sm:space-y-2">
                         @foreach($upcomingHolidays as $holiday)
                         <div class="flex items-center space-x-3">
                             <div class="bg-red-100 p-2 rounded">
@@ -134,24 +137,6 @@
                 </div>
             </div>
             @endif
-
-            <!-- クイックアクション -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">クイックアクション</h3>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="{{ route('admin.reservations.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            新規予約作成
-                        </a>
-                        <a href="{{ route('admin.holidays.create') }}" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            休診日登録
-                        </a>
-                        <a href="{{ route('admin.reservations.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            予約一覧
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </x-admin-layout>
