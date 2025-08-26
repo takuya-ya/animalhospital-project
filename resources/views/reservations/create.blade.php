@@ -123,7 +123,12 @@ $hasExistingReservation = auth()->user()->reservations()->where('reservation_dat
     <h4 class="mb-5">キャンセルはこちらから</h4>
     <button type="button"
         class="w-32 bg-[#B0F33B] text-white font-bold px-6 py-2 rounded-full hover:brightness-75 transition"
-        onclick="window.location.href='{{ route('reservations.index') }}'">
+        {{-- routeを直接JSに埋め込むと構文エラーになりやすいため、data属性経由で管理 --}}
+        {{-- data-* 属性は dataset オブジェクトにまとまる --}}
+        {{-- this.dataset.url で url キーの値を参照できる --}}
+
+        data-url="{{ route('reservations.index') }}"
+        onclick="window.location.href=this.dataset.url">
         予約一覧
     </button>
 </div>
