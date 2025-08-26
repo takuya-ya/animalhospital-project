@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            StaffSeeder::class,
             ReservationSeeder::class,
+            NewsSeeder::class,
         ]);
     }
 }

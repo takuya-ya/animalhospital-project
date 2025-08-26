@@ -55,5 +55,7 @@ class NewsSeeder extends Seeder
         foreach ($newsItems as $item) {
             News::create($item);
         }
+
+        $this->command->info('5件のお知らせを作成しました（うち1件は下書き)。');
     }
 }

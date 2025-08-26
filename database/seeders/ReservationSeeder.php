@@ -12,11 +12,9 @@ class ReservationSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = \App\Models\User::first();
-        
+        $user = \App\Models\User::first() ?? \App\Models\User::factory()->create();
         if (!$user) {
-            $this->command->info('ユーザーが見つかりません。まずユーザーを作成してください。');
-            return;
+            $this->command->info('ユーザーが見つかりません。factoryでユーザーを作成しました');
         }
 
         $this->command->info("ユーザー: {$user->name} (ID: {$user->id}) の過去予約を作成中...");
@@ -26,7 +24,7 @@ class ReservationSeeder extends Seeder
                 'user_id' => $user->id,
                 'reservation_datetime' => now()->subDays(rand(1, 30))->subHours(rand(9, 17))
             ]);
-            
+
             $this->command->info("予約作成: {$reservation->reservation_datetime} (ID: {$reservation->id})");
         }
 
