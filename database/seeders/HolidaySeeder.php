@@ -18,13 +18,9 @@ class HolidaySeeder extends Seeder
         $regularClosedDow = [0, 4];
         $descs = ['学会参加', '設備点検', 'スタッフ研修', '院内メンテナンス', '台風の影響'];
 
-        // クロージャ：外部変数$regularClosedDowをuseでキャプチャして内部で使用
+        // クロージャ：DB登録処理のみ（フィルタリングは事前に完了）
         // $date: 具体的日付を持つCarbonインスタンス（例：2025-09-18のオブジェクト）
-        $add = function (Carbon $date, string $desc) use ($regularClosedDow): void {
-            // $date->dayOfWeek: そのオブジェクトの曜日を数値で取得（0=日〜6=土）
-            if (in_array((int)$date->dayOfWeek, $regularClosedDow, true)) {
-                return; // 定休日は登録しない
-            }
+        $add = function (Carbon $date, string $desc): void {
             // created_atをランダムな過去日時に設定（自然な並び順のため）
             $randomCreatedAt = Carbon::now()->subDays(random_int(1, 120))->subHours(random_int(9, 17));
 
@@ -36,42 +32,46 @@ class HolidaySeeder extends Seeder
                     'updated_at' => $randomCreatedAt
                 ]
             );
-        };
-
-        // 全ての休診日を一度に生成してシャッフル（自然な並び順のため）
+        };        // 全ての休診日を一度に生成してシャッフル（自然な並び順のため）
         $allHolidays = [];
+        $globalSeen = []; // 全体での重複管理
 
         // 今後8件
         $added = 0;
-        $seen = [];
         while ($added < 8) {
             $d = Carbon::now()->addDays(random_int(1, 90))->startOfDay();
             $key = $d->toDateString();
-            if (isset($seen[$key]) || in_array((int)$d->dayOfWeek, $regularClosedDow, true)) {
+            // 重複チェック＆定休日チェックを一箇所で実行
+            if (isset($globalSeen[$key]) || in_array((int)$d->dayOfWeek, $regularClosedDow, true)) {
                 continue;
             }
-            $seen[$key] = true;
+            $globalSeen[$key] = true;
             $allHolidays[] = [$d, $descs[array_rand($descs)]];
             $added++;
         }
 
         // 過去5件
         $added = 0;
-        $seen = [];
         while ($added < 5) {
             $d = Carbon::now()->subDays(random_int(1, 45))->startOfDay();
             $key = $d->toDateString();
-            if (isset($seen[$key]) || in_array((int)$d->dayOfWeek, $regularClosedDow, true)) {
+            if (isset($globalSeen[$key]) || in_array((int)$d->dayOfWeek, $regularClosedDow, true)) {
                 continue;
             }
-            $seen[$key] = true;
+            $globalSeen[$key] = true;
             $allHolidays[] = [$d, $descs[array_rand($descs)]];
             $added++;
         }
 
-        // 3日連続の連休
+        // 3日連続の連休（連続性重視のため定休日もスキップしない）
         $start = Carbon::now()->addMonthNoOverflow()->startOfMonth()->next(Carbon::MONDAY);
         foreach (CarbonPeriod::create($start, 2) as $date) {
+            $key = $date->toDateString();
+            // 重複チェックのみ（定休日でも連続休暇として登録）
+            if (isset($globalSeen[$key])) {
+                continue;
+            }
+            $globalSeen[$key] = true;
             $allHolidays[] = [$date, '院内改装のため休診'];
         }
 
