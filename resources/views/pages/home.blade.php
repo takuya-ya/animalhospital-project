@@ -44,7 +44,7 @@
                 <ul class="space-y-3 text-sm text-left">
                     @foreach($holidays as $holiday)
                     <li class="text-left text-sm leading-relaxed">
-                        <span>{{ $holiday->updated_at->format('Y.m.d')  }}</span>
+                        <span>{{ $holiday->created_at->format('Y.m.d')  }}</span>
                         <span>&nbsp;</span>
                         <span>&nbsp;</span>
                         <span style="color:#FD8C07">{{ $holiday->holiday_date->format('n月j日') }}</span>
