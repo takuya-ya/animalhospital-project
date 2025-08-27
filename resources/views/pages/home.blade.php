@@ -42,7 +42,7 @@
             <div class="bg-white border-2 border-[#FD8C07] rounded-xl p-10 relative mt-10">
                 {{-- お知らせの内容 --}}
                 <ul class="space-y-3 text-sm text-left">
-                    @foreach($holydaysNews as $holiday)
+                    @foreach($holidays as $holiday)
                     <li class="text-left text-sm leading-relaxed">
                         <span>{{ $holiday->updated_at->format('Y.m.d')  }}</span>
                         <span>&nbsp;</span>
