@@ -77,10 +77,10 @@
                         @endif
 
                         <div class="flex items-center justify-between mt-6 space-x-4">
-                            <a href="{{ route('admin.holidays.show', $holiday) }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                            <a href="{{ route('admin.holidays.show', $holiday) }}" class="text-gray-800 font-bold py-2 px-4 rounded hover:brightness-110" style="background-color: #C4C4C4;"">
                                 詳細に戻る
                             </a>
-                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            <button type="submit" class="text-white font-bold py-2 px-4 rounded hover:brightness-110" style="background-color: #0CC0DF;">
                                 更新
                             </button>
                         </div>

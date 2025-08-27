@@ -12,15 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        $this->call([
-            ReservationSeeder::class,
-        ]);
+        // 開発・テスト環境のみのダミーデータ（本番では実行しない）
+        if (app()->environment(['local', 'testing'])) {
+            $this->call([
+                StaffSeeder::class,        // ダミー管理者
+                ReservationSeeder::class,  // テスト予約
+                NewsSeeder::class,         // サンプル記事
+                HolidaySeeder::class,      // 休診日テストデータ
+            ]);
+        }
     }
 }

@@ -61,7 +61,7 @@
                     <p class="text-[#0CC0DF] font-bold text-xl shrink-0">A.</p>
                     <p class="font-normal text-base">
                         モルモットやハリネズミ、フクロモモンガ、フェレット、爬虫類など、
-                        いわゆる“エキゾチックアニマル”や小さな動物たちの診療にも対応しております。<br>
+                        いわゆる<a href="{{ url('/guide#target_animal') }}" class="hover:brightness-110 filter">“エキゾチックアニマル”</a>や小さな動物たちの診療にも対応しております。<br>
                         ご家族の皆さまと協力しながら、その子にとって最適な診療を目指します。<br>
                         まずはお気軽にご相談ください。
                     </p>

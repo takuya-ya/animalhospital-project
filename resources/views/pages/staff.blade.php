@@ -45,14 +45,14 @@
             <!-- 右：画像カラム -->
             <div class="h-full w-full max-w-sm flex items-center justify-center">
                 <img src="{{ asset('images/staff-dr-rt.png') }}"
-                    class="h-full w-auto object-contain rounded"
+                    class="h-full w-auto object-contain rounded-xl"
                     alt="院長画像">
             </div>
         </div>
 
 
         <div class="flex flex-col md:flex-row items-stretch justify-center
-     w-110 p-5 px-4 gap-10 md:gap-10 max-w-6xl mx-auto"
+     w-110 p-5 px-4 gap-10 md:gap-10 max-w-6xl mx-auto rounded-xl"
             style="background-color: rgba(176, 243, 59, 0.2);">
             <!-- 左：画像カラム -->
             <!-- 左：画像カラム -->
@@ -90,7 +90,7 @@
                 <img src="{{ asset('images/staff-academic-activity-rt.png') }}" alt="右画像" class="h-12 w-auto">
             </div>
 
-            <div x-data="{ open: false }" class="w-full mx-auto border rounded mb-4 shadow-sm">
+            <div x-data="{ open: false }" class="w-full mx-auto border rounded-xl mb-4 shadow-sm">
                 <button
                     @click="open = !open"
                     class="w-full flex justify-between items-center px-4 py-3 bg-white font-semibold text-left"
@@ -246,7 +246,7 @@
 
 
 
-            <div x-data="{ open: false }" class="w-full mx-auto border rounded mb-4 shadow-sm">
+            <div x-data="{ open: false }" class="w-full mx-auto border rounded-xl mb-4 shadow-sm">
                 <button
                     @click="open = !open"
                     class="w-full flex justify-between items-center px-4 py-3 bg-white font-semibold text-left"

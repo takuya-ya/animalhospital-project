@@ -13,8 +13,9 @@ class HomeController extends Controller
   public function index()
   {
     // 今日以降の休診日を取得（直近5件）
+    // created_at降順で最新の投稿が上に来るように並び替え
     $holidays = Holiday::where('holiday_date', '>=', now()->toDateString())
-      ->orderBy('holiday_date', 'asc')
+      ->orderBy('created_at', 'desc')
       ->limit(5)
       ->get();
 

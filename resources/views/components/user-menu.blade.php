@@ -1,8 +1,13 @@
-<div class="flex justify-center items-center space-x-4 mt-6">
+<div class="flex flex-col items-center mt-6">
+    {{-- ロゴ --}}
+    <a href="/">
+        <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+    </a>
+
     {{-- ログイン中ボタン --}}
-    <div x-data="{ open: false }" class="relative inline-block text-center">
+    <div x-data="{ open: false }" class="relative inline-block text-center mt-4">
         <button @click="open = !open"
-            class="text-sm text-orange-600 hover:text-gray-500 flex items-center justify-center"
+            class="text-sm text-gray-500 hover:text-orange-500 flex items-center justify-center"
             style="font-family: 'M PLUS Rounded 1c'; background:none; border:none; cursor:pointer;">
             {{ Auth::user()->name }}さんがログイン中
             <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -23,12 +28,6 @@
             </form>
         </div>
     </div>
-
-    {{-- HOMEボタン --}}
-    <div>
-        <a href="{{ url('/') }}">
-            <img src="{{ asset('img/home.png') }}" alt="HOME"
-                 class="w-16 h-auto hover:opacity-80 transition">
-        </a>
-    </div>
 </div>
+
+</body>

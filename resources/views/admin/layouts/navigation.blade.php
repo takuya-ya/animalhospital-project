@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open:false }" class="sticky top-0 bg-white bg-opacity-90 shadow z-50" x-data="{ open: false }">
     <!-- Primary Navigation Menu -->
-     <!-- 7/30修正　全体のサイズ設定など -->
+    <!-- PC版 -->
     <div class="max-w-[960px] mx-auto items-center p-4">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -67,22 +67,22 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+    <!-- スマホ版 -->
+    <nav x-show="open" x-transition class="sm:hidden fixed text-[20px] top-30 left-0 w-full h-full z-40 bg-white/70 backdrop-blur pt-5 px-4 pb-4 space-y-3 font-bold bg-white text-center">
+        <div class="pt-8 pb-3 space-y-1">
+            <x-admin-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                 {{ __('ダッシュボード') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.reservations.index')" :active="request()->routeIs('admin.reservations.*')">
+            </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.reservations.index')" :active="request()->routeIs('admin.reservations.*')">
                 {{ __('予約管理') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.holidays.index')" :active="request()->routeIs('admin.holidays.*')">
+            </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.holidays.index')" :active="request()->routeIs('admin.holidays.*')">
                 {{ __('休診日管理') }}
-            </x-responsive-nav-link>
+            </x-admin-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-12 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::guard('admin')->user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::guard('admin')->user()->email }}</div>
@@ -101,5 +101,5 @@
                 </form>
             </div>
         </div>
-    </div>
+    </nav>
 </nav>

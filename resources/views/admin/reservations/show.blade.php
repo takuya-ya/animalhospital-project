@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
             {{ __('予約詳細') }}
         </h2>
     </x-slot>
@@ -100,24 +100,26 @@
                         </dl>
                     </div>
 
-                    <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
-                        <a href="{{ route('admin.reservations.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                    <div class="flex justify-between mt-8 pt-6 border-t border-gray-200 [@media(max-width:425px)]:gap-y-4 [@media(max-width:425px)]:flex-col [@media(max-width:425px)]:mx-auto [@media(max-width:425px)]:max-w-80">
+                        <a href="{{ route('admin.reservations.index') }}" 
+                        class="text-gray-800 text-sm font-bold py-2 px-4 rounded hover:brightness-110 [@media(max-width:425px)]:order-2 [@media(max-width:425px)]:text-center" style="background-color: #C4C4C4;">
                             一覧に戻る
                         </a>
                         
-                        <div class="space-x-2">
-                            <a href="{{ route('admin.reservations.edit', $reservation) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                        <div class="flex gap-x-4 [@media(max-width:425px)]:justify-between">
+                            <a href="{{ route('admin.reservations.edit', $reservation) }}" class="text-white text-sm font-bold py-2 px-4 rounded hover:brightness-110" style="background-color: #0CC0DF;">
                                 編集
                             </a>
                             <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="POST" class="inline" onsubmit="return confirm('本当に削除しますか？')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                <button type="submit" class="text-white text-sm font-bold py-2 px-4 rounded hover:brightness-110" style="background-color: #D72638;">
                                     削除
                                 </button>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
