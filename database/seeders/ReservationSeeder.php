@@ -12,9 +12,10 @@ class ReservationSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = \App\Models\User::first() ?? \App\Models\User::factory()->create();
+        $user = \App\Models\User::first();
         if (!$user) {
-            $this->command->info('ユーザーが見つかりません。factoryでユーザーを作成しました');
+            $user = \App\Models\User::factory()->create();
+            $this->command->info('ユーザーが見つからなかったため、factoryでユーザーを作成しました。');
         }
 
         $this->command->info("ユーザー: {$user->name} (ID: {$user->id}) の過去予約を作成中...");
