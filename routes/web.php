@@ -28,29 +28,12 @@ use App\Models\Reservation;
 // フロントエンドのルート
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/faq', function () {
-    return view('pages.faq');
-});
-
-Route::get('/guide', function () {
-    return view('pages.guide');
-});
-
-Route::get('/recruit', function () {
-    return view('pages.recruit');
-});
-
-Route::get('/reservation', function () {
-    return view('pages.reservation');
-});
-
-Route::get('/staff', function () {
-    return view('pages.staff');
-});
-
-Route::get('/facility', function () {
-    return view('pages.facility');
-});
+Route::view('/faq', 'pages.faq')->name('faq');
+Route::view('/guide', 'pages.guide')->name('guide');
+Route::view('/recruit', 'pages.recruit')->name('recruit');
+Route::view('/reservation', 'pages.reservation')->name('reservation');
+Route::view('/staff', 'pages.staff')->name('staff');
+Route::view('/facility', 'pages.facility')->name('facility');
 
 // バックエンドのルート
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -78,19 +61,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-// API Routes for AJAX
-Route::get('/api/holidays', function () {
-    return \App\Models\Holiday::where('holiday_date', '>=', now()->toDateString())
-        ->pluck('holiday_date')
-        ->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'));
-});
-
-Route::get('/api/reservations/{date}', function ($date) {
-    return \App\Models\Reservation::whereDate('reservation_datetime', $date)
-        ->pluck('reservation_datetime')
-        ->map(fn($datetime) => \Carbon\Carbon::parse($datetime)->format('H:i'));
 });
 
 require __DIR__ . '/auth.php';
