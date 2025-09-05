@@ -5,21 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Holiday;
 use App\Models\Reservation;
-use Carbon\Carbon;
 
 class ApiController extends Controller
 {
   public function holidays()
   {
-    return Holiday::where('holiday_date', '>=', now()->toDateString())
-      ->pluck('holiday_date')
-      ->map(fn($date) => Carbon::parse($date)->format('Y-m-d'));
+    return Holiday::where('holiday_date', '>=', today())
+      ->get(['holiday_date'])
+      ->map(fn($holiday) => $holiday->holiday_date->toDateString());
   }
 
   public function reservationsByDate($date)
   {
     return Reservation::whereDate('reservation_datetime', $date)
-      ->pluck('reservation_datetime')
-      ->map(fn($datetime) => Carbon::parse($datetime)->format('H:i'));
+      ->get(['reservation_datetime'])
+      ->map(fn($reservation) => $reservation->reservation_datetime->format('H:i'));
   }
 }
