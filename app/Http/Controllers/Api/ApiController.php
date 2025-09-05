@@ -8,7 +8,7 @@ use App\Models\Reservation;
 
 class ApiController extends Controller
 {
-  public function holidays()
+  public function getHolidays()
   {
     return Holiday::where('holiday_date', '>=', today())
       ->get(['holiday_date'])
