@@ -39,7 +39,7 @@ Route::view('/facility', 'pages.facility')->name('facility');
 Route::prefix('admin')->name('admin.')->group(function () {
     // Authentication routes
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminAuthController::class, 'login']);
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.store');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
 
