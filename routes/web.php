@@ -38,8 +38,12 @@ Route::view('/facility', 'pages.facility')->name('facility');
 // バックエンドのルート
 Route::prefix('admin')->name('admin.')->group(function () {
     // Authentication routes
-    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.store');
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])
+        ->name('login')
+        ->middleware('guest:admin');
+    Route::post('/login', [AdminAuthController::class, 'login'])
+        ->name('login.store')
+        ->middleware(['guest:admin', 'throttle:login']);
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
 
