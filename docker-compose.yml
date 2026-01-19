@@ -49,7 +49,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    restart: always
+    # restart: always
     ports:
       - "8080:80"  # ホストの8080 → コンテナの80
     environment:
